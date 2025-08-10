@@ -58,7 +58,7 @@
           <a href="https://instagram.com/reysiregars" target="_blank" class="social-icon">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://www.linkedin.com/in/reynaldi-wiratama-siregar-490b8b261" target="_blank" class="social-icon">
+          <a href="https://www.linkedin.com/in/reynaldi-siregar-490b8b261" target="_blank" class="social-icon">
             <i class="fab fa-linkedin"></i>
           </a>
         </div>
