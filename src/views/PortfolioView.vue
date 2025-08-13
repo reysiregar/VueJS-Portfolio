@@ -39,12 +39,21 @@ export default {
           tech: 'HTML, CSS, JavaScript',
           github: 'https://github.com/reysiregar/nhkbpmj',
           demo: 'https://nhkbpmj.vercel.app'
+        },
+        {
+          id: 4,
+          name: 'Halal Scanner Website',
+          imageUrl: 'portfolio-v4',
+          imageLoading: true,
+          status: 'Halal Scanner lets you check food and drink products in seconds — just snap or upload the ingredients list and get instant halal verification.',
+          tech: 'ReactJS, Tailwind, Node.js, Express.js, Vite',
+          github: 'https://github.com/reysiregar/halal-scanner',
+          demo: 'https://ai-halal-scanner.vercel.app'
         }
       ]
     };
   },
   mounted() {
-    // Simulate loading delay (you can replace this with your actual data fetching logic)
     setTimeout(() => {
       this.loading = false;
     }, 1500);
@@ -67,7 +76,7 @@ export default {
           <div class="grid grid-cols-1 gap-4 pb-32 md:grid-cols-3 md:gap-3 xl:grid-cols-3 xl:gap-3 2xl:gap-5 fade-zoom-in">
             <!-- Skeleton Loaders -->
             <template v-if="loading">
-              <div v-for="n in 3" :key="`skeleton-${n}`" class="h-full">
+              <div v-for="n in 4" :key="`skeleton-${n}`" class="h-full">
                 <SkeletonCard />
               </div>
             </template>
@@ -143,7 +152,6 @@ svg:hover{
   animation: fadeZoomIn 1s ease-in-out;
 }
 
-/* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .fade-zoom-in {
     animation: none;
