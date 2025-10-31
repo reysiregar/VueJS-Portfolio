@@ -3,12 +3,16 @@ export default {
   data() {
     return {
       certificates: [
+        // Each certificate now includes `imageLoading` to show a skeleton
+        // until the image is fully loaded or errors out, mirroring the UX
+        // used on the Projects and Blog pages.
         {
             id: 1,
             name: 'Belajar Dasar Pemrograman Web',
             issuer: 'Dicoding',
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_1',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/certificates/1OP842VJ1ZQK',
             topics: 'React, Front-End Web'
         },
@@ -18,6 +22,7 @@ export default {
             issuer: 'Dicoding',
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_2',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/certificates/07Z64DLN2PQR',
             topics: 'Google Cloud, React, Front-End Web, Back-End'
         },
@@ -27,6 +32,7 @@ export default {
             issuer: 'Dicoding',
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_3',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/certificates/2VX34E134ZYQ',
             topics: 'React, Front-End Web'
         },
@@ -36,6 +42,7 @@ export default {
             issuer: 'Dicoding',
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_4',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/certificates/4EXG7240GPRL',
             topics: 'Artificial Intelligence, Machine Learning'
         },
@@ -45,6 +52,7 @@ export default {
             issuer: 'HackerRank',
             issueDate: 'July 2025',
             imageUrl: 'sertifikat_hackerrank_1',
+            imageLoading: true,
             credentialUrl: 'https://www.hackerrank.com/certificates/34f5b92b171d',
             topics: 'Data Structures, Algorithms'
         },
@@ -54,6 +62,7 @@ export default {
             issuer: 'Dicoding',
             issueDate: 'February 2025',
             imageUrl: 'sertifikat_course_5',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/certificates/0LZ0RGW63P65',
             topics: 'API, Webpack, Front-End Web'
         },
@@ -63,6 +72,7 @@ export default {
             issuer: 'Dicoding',
             issueDate: 'March 2025',
             imageUrl: 'sertifikat_kelulusan',
+            imageLoading: true,
             credentialUrl: 'https://www.dicoding.com/users/reysiregar',
             topics: 'Intermediate, Front-End'
         }
@@ -70,8 +80,9 @@ export default {
     };
   },
   methods: {
-    handleImageError(event) {
-      // Fallback to a placeholder or hide the image
+    handleImageError(event, cert) {
+      // Stop skeleton and show the SVG/text fallback
+      if (cert) cert.imageLoading = false;
       event.target.style.display = 'none';
       event.target.nextElementSibling.style.display = 'flex';
     }
@@ -106,7 +117,7 @@ export default {
               :alt="cert.name" 
               decoding="async"
               :src="'/img/certificates/' + cert.imageUrl + '.jpg'"
-              @error="handleImageError"
+              @error="handleImageError($event, cert)"
             >
             <div class="image-fallback" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -294,6 +305,7 @@ export default {
   line-height: 1.3;
   margin: 0;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -326,6 +338,7 @@ export default {
   color: rgba(125, 211, 252, 0.9);
   font-weight: 500;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -469,6 +482,7 @@ export default {
   
   .card-title {
     font-size: 0.9rem;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
   }
   

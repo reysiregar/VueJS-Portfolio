@@ -45,12 +45,6 @@ export default {
           name: 'ReactJS',
           imageUrl: 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png',
           status: 'Beginner'
-        },
-        {
-          id: 9,
-          name: 'WordPress',
-          imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/98/WordPress_blue_logo.svg',
-          status: 'Beginner'
         }
       ],
       tools: [
@@ -92,8 +86,8 @@ export default {
         },
         {
           id: 7,
-          name: 'Canva',
-          imageUrl: '/img/canva-icon.svg',
+          name: 'Figma',
+          imageUrl: '/img/figma-icon.svg',
           status: 'Design'
         },
         {
