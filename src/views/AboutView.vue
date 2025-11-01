@@ -102,7 +102,7 @@ export default {
           id: 1,
           type: 'education',
           institution: 'SMA Negeri 9 Kota Bekasi',
-          period: 'July 2020 - Graduated 2023'
+          period: 'July 2020 - Mei 2023'
         },
         {
           id: 2,
@@ -114,7 +114,7 @@ export default {
           id: 3,
           type: 'career',
           institution: 'PT. Royal Trust',
-          period: 'August 2025 - Present',
+          period: 'August 2025 - September 2025',
           role: "Data Entry",
           description: "Responsible for data management and entry into the company's database."
         },

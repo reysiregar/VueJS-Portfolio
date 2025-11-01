@@ -3,9 +3,6 @@ export default {
   data() {
     return {
       certificates: [
-        // Each certificate now includes `imageLoading` to show a skeleton
-        // until the image is fully loaded or errors out, mirroring the UX
-        // used on the Projects and Blog pages.
         {
             id: 1,
             name: 'Belajar Dasar Pemrograman Web',
@@ -13,6 +10,7 @@ export default {
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_1',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/certificates/1OP842VJ1ZQK',
             topics: 'React, Front-End Web'
         },
@@ -23,6 +21,7 @@ export default {
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_2',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/certificates/07Z64DLN2PQR',
             topics: 'Google Cloud, React, Front-End Web, Back-End'
         },
@@ -33,6 +32,7 @@ export default {
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_3',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/certificates/2VX34E134ZYQ',
             topics: 'React, Front-End Web'
         },
@@ -43,6 +43,7 @@ export default {
             issueDate: 'November 2025',
             imageUrl: 'sertifikat_course_4',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/certificates/4EXG7240GPRL',
             topics: 'Artificial Intelligence, Machine Learning'
         },
@@ -53,6 +54,7 @@ export default {
             issueDate: 'July 2025',
             imageUrl: 'sertifikat_hackerrank_1',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.hackerrank.com/certificates/34f5b92b171d',
             topics: 'Data Structures, Algorithms'
         },
@@ -63,6 +65,7 @@ export default {
             issueDate: 'February 2025',
             imageUrl: 'sertifikat_course_5',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/certificates/0LZ0RGW63P65',
             topics: 'API, Webpack, Front-End Web'
         },
@@ -73,20 +76,15 @@ export default {
             issueDate: 'March 2025',
             imageUrl: 'sertifikat_kelulusan',
             imageLoading: true,
+            imageError: false,
             credentialUrl: 'https://www.dicoding.com/users/reysiregar',
             topics: 'Intermediate, Front-End'
         }
       ]
     };
   },
-  methods: {
-    handleImageError(event, cert) {
-      // Stop skeleton and show the SVG/text fallback
-      if (cert) cert.imageLoading = false;
-      event.target.style.display = 'none';
-      event.target.nextElementSibling.style.display = 'flex';
-    }
-  }
+  // Using the same inline @load/@error approach as Projects so the skeleton
+  // shows until the <img> finishes, then we toggle visibility.
 }
 </script>
 
@@ -111,15 +109,15 @@ export default {
         >
           <div class="card-image">
             <div v-if="cert.imageLoading" class="w-full aspect-video bg-gray-700 rounded-xl animate-pulse"></div>
-            <img 
-              v-show="!cert.imageLoading"
+            <img
+              v-show="!cert.imageLoading && !cert.imageError"
               @load="cert.imageLoading = false"
-              :alt="cert.name" 
+              @error="cert.imageLoading = false; cert.imageError = true"
+              :alt="cert.name"
               decoding="async"
               :src="'/img/certificates/' + cert.imageUrl + '.jpg'"
-              @error="handleImageError($event, cert)"
             >
-            <div class="image-fallback" style="display: none;">
+            <div v-if="!cert.imageLoading && cert.imageError" class="image-fallback">
               <svg xmlns="http://www.w3.org/2000/svg" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <circle cx="8.5" cy="8.5" r="1.5"></circle>

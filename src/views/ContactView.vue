@@ -4,8 +4,7 @@
       <div class="container">
         <h1 class="contact-title">Let's connect!</h1>
         <p class="contact-description">
-          Drop me a message if you have any questions,<br>
-          leave your email as well so I can reach out if needed.
+          Hi There! leave your message here.
         </p>
         <form class="contact-form" @submit.prevent="sendMessage">
           <div class="input-wrapper">
