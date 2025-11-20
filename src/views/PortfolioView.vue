@@ -49,6 +49,16 @@ export default {
           tech: 'ReactJS, Tailwind, Node.js, Express.js, Vite',
           github: 'https://github.com/reysiregar/halal-scanner',
           demo: 'https://ai-halal-scanner.vercel.app'
+        },
+        {
+          id: 5,
+          name: 'Jewelry Commerce Website',
+          imageUrl: 'portfolio-v5',
+          imageLoading: true,
+          status: 'Lumiere is a Jewelry Commerce Website developed by my Team for a college project. It features a modern design and user-friendly interface, allowing users to browse and purchase jewelry items easily.',
+          tech: 'ReactJS, Tailwind, Express 4, Radix UI',
+          github: 'https://github.com/reysiregar/JewelryCommerce',
+          demo: 'https://lumiere-commerce.vercel.app'
         }
       ]
     };
