@@ -55,7 +55,7 @@ export default {
           name: 'Jewelry Commerce Website',
           imageUrl: 'portfolio-v5',
           imageLoading: true,
-          status: 'Lumiere is a Jewelry Commerce Website developed by my Team for a college project. It features a modern design and user-friendly interface, allowing users to browse and purchase jewelry items easily.',
+          status: 'Lumiere Commerce is a college team project. This website allows users to browse and purchase various jewelry products online.',
           tech: 'ReactJS, Tailwind, Express 4, Radix UI',
           github: 'https://github.com/reysiregar/JewelryCommerce',
           demo: 'https://lumiere-commerce.vercel.app'
