@@ -2,7 +2,7 @@
   <main class="mt-6 md:mt-1 flex flex-col-reverse gap-8 items-center md:flex-row md:gap-16 md:justify-center min-h-[65vh] md:min-h-[80vh]">
     <section class="space-y-2 text-center md:text-left px-10" itemscope itemtype="https://schema.org/Person">
       <p :class="['text-blue-200 md:text-base lg:text-lg', showContent ? 'animate-fade-up' : 'opacity-0']">Hello World, I'm</p>
-      <h1 :class="['text-4xl font-bold md:text-5xl lg:text-6xl text-white', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Wiratama Siregar</h1>
+      <h1 :class="['text-4xl font-bold md:text-5xl lg:text-6xl text-white', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Siregar</h1>
       <div class="py-2">
         <TypeWriter 
           :phrases="roles"
