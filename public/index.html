@@ -6,50 +6,113 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>Reynaldi Wiratama Siregar | Front-End Web Developer Portfolio</title>
-    <meta name="description" content="Reynaldi Wiratama Siregar is a passionate Front-End Web Developer from Bekasi, Indonesia. Explore portfolio, skills, certificates, and contact information.">
-    <meta name="keywords" content="Reynaldi Wiratama Siregar, Front-End Developer, Web Developer, Portfolio, Bekasi, Indonesia, JavaScript, VueJS, Tailwind, IT, Resume">
+    <meta name="description" content="Reynaldi Wiratama Siregar (Reynaldi Siregar) - Passionate Front-End Web Developer from Bekasi, Indonesia specializing in VueJS, JavaScript, and modern web technologies. Explore my portfolio, skills, projects, and certificates.">
+    <meta name="keywords" content="Reynaldi Wiratama Siregar, Reynaldi Siregar, Front-End Developer, Web Developer, VueJS Developer, JavaScript Developer, Portfolio, Bekasi, Indonesia, Tailwind, React, IT, Resume, Web Development">
     <meta name="author" content="Reynaldi Wiratama Siregar">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <link rel="alternate" hreflang="en" href="https://www.reynaldisiregar.me/" />
+    
+    <!-- Preconnect to external origins for faster DNS resolution and connection setup -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://reysiregar-portfolio-v2.vercel.app/">
+    <meta property="og:url" content="https://www.reynaldisiregar.me/">
     <meta property="og:title" content="Reynaldi Wiratama Siregar | Front-End Web Developer Portfolio">
     <meta property="og:description" content="Reynaldi Wiratama Siregar is a passionate Front-End Web Developer from Bekasi, Indonesia. Explore portfolio, skills, certificates, and contact information.">
-    <meta property="og:image" content="https://reysiregar-portfolio-v2.vercel.app/img/profile.jpg">
+    <meta property="og:image" content="https://www.reynaldisiregar.me/img/profile.jpg">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://reysiregar-portfolio-v2.vercel.app/">
+    <meta name="twitter:url" content="https://www.reynaldisiregar.me/">
     <meta name="twitter:title" content="Reynaldi Wiratama Siregar | Front-End Web Developer Portfolio">
     <meta name="twitter:description" content="Reynaldi Wiratama Siregar is a passionate Front-End Web Developer from Bekasi, Indonesia. Explore portfolio, skills, certificates, and contact information.">
-    <meta name="twitter:image" content="https://reysiregar-portfolio-v2.vercel.app/img/profile.jpg">
-    <link rel="canonical" href="https://reysiregar-portfolio-v2.vercel.app/" />
+    <meta name="twitter:image" content="https://www.reynaldisiregar.me/img/profile.jpg">
+    <link rel="canonical" href="https://www.reynaldisiregar.me/" />
     <!-- Structured Data: Person -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Reynaldi Wiratama Siregar",
-        "url": "https://reysiregar-portfolio-v2.vercel.app/",
-        "image": "https://reysiregar-portfolio-v2.vercel.app/img/profile.jpg",
+        "alternateName": "Reynaldi Siregar",
+        "url": "https://www.reynaldisiregar.me/",
+        "image": "https://www.reynaldisiregar.me/img/profile.jpg",
+        "description": "Front-End Web Developer specializing in VueJS, JavaScript, and modern web technologies",
         "sameAs": [
-          "https://www.linkedin.com/in/reynaldi-wiratama-siregar-490b8b261",
+          "https://www.linkedin.com/in/reynaldi-siregar-490b8b261",
           "https://instagram.com/reysiregars",
           "https://github.com/reysiregar"
         ],
         "jobTitle": "Front-End Web Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Freelance"
+        },
+        "knowsAbout": ["Web Development", "VueJS", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Front-End Development"],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Bekasi",
+          "addressRegion": "West Java",
           "addressCountry": "ID"
         },
-        "alumniOf": "Universitas Bina Sarana Informatika"
+        "affiliation": {
+          "@type": "EducationalOrganization",
+          "name": "Gunadarma University"
+        },
+        "email": "mailto:reynaldisiregar24@yahoo.com",
+        "nationality": "Indonesian"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Reynaldi Siregar Portfolio",
+        "alternateName": "Reynaldi Wiratama Siregar Portfolio",
+        "url": "https://www.reynaldisiregar.me/",
+        "description": "Professional portfolio website of Reynaldi Wiratama Siregar, Front-End Web Developer",
+        "author": {
+          "@type": "Person",
+          "name": "Reynaldi Wiratama Siregar"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.reynaldisiregar.me/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but this website doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <!-- SEO fallback content for search engines -->
+      <div style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+        <h1>Reynaldi Wiratama Siregar - Front-End Web Developer</h1>
+        <p>Welcome! I'm Reynaldi Wiratama Siregar (also known as Reynaldi Siregar), a passionate Front-End Web Developer from Bekasi, Indonesia.</p>
+        <h2>About Me</h2>
+        <p>I specialize in modern web development technologies including VueJS, JavaScript, HTML, CSS, Tailwind CSS, and React. As an Information System student, I'm dedicated to creating beautiful and functional web applications.</p>
+        <h2>Skills</h2>
+        <ul>
+          <li>Front-End Development: VueJS, React, JavaScript</li>
+          <li>Styling: HTML, CSS, Tailwind CSS</li>
+          <li>Tools: Git, GitHub, NPM, Vercel</li>
+          <li>Design: Figma, UI/UX</li>
+        </ul>
+        <h2>Contact</h2>
+        <p>Email: reynaldisiregar24@yahoo.com</p>
+        <p>Location: Bekasi, West Java, Indonesia</p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/reynaldi-siregar-490b8b261">linkedin.com/in/reynaldi-siregar-490b8b261</a></p>
+        <p>GitHub: <a href="https://github.com/reysiregar">github.com/reysiregar</a></p>
+        <p>Instagram: <a href="https://instagram.com/reysiregars">@reysiregars</a></p>
+        <p>Education: Information System Student at Gunadarma University</p>
+      </div>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
