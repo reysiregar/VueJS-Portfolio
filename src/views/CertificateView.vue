@@ -1,5 +1,11 @@
 <script>
 export default {
+  props: {
+    showContent: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       certificates: [
@@ -108,16 +114,17 @@ export default {
           :style="{ animationDelay: (0.12 * idx) + 's' }"
         >
           <div class="card-image">
-            <div v-if="cert.imageLoading" class="w-full aspect-video bg-gray-700 rounded-xl animate-pulse"></div>
+            <div v-if="cert.imageLoading" class="skeleton-overlay"></div>
             <img
-              v-show="!cert.imageLoading && !cert.imageError"
+              :class="{ 'image-loaded': !cert.imageLoading }"
               @load="cert.imageLoading = false"
               @error="cert.imageLoading = false; cert.imageError = true"
               :alt="cert.name"
               decoding="async"
-              :src="'/img/certificates/' + cert.imageUrl + '.jpg'"
+              loading="lazy"
+              :src="'/img/certificates/' + cert.imageUrl + '.webp'"
             >
-            <div v-if="!cert.imageLoading && cert.imageError" class="image-fallback">
+            <div v-if="cert.imageError" class="image-fallback">
               <svg xmlns="http://www.w3.org/2000/svg" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <circle cx="8.5" cy="8.5" r="1.5"></circle>
@@ -173,44 +180,55 @@ export default {
 .certificate-card {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 380px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  will-change: transform;
+  /* Improve rendering performance */
+  contain: layout style paint;
+  content-visibility: auto;
 }
 
-.certificate-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.1) 0%, 
-    rgba(255, 255, 255, 0.05) 50%, 
-    rgba(255, 255, 255, 0.02) 100%);
-  border-radius: 16px;
-  pointer-events: none;
-}
-
-.certificate-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(96, 165, 250, 0.3);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(96, 165, 250, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  background: rgba(96, 165, 250, 0.08);
+/* Only apply expensive effects on desktop */
+@media (min-width: 769px) {
+  .certificate-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .certificate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 50%, 
+      rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+  
+  .certificate-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(96, 165, 250, 0.3);
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(96, 165, 250, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    background: rgba(96, 165, 250, 0.08);
+  }
 }
 
 /* Focus states for accessibility */
@@ -231,17 +249,25 @@ export default {
   flex-shrink: 0;
 }
 
-.card-image::after {
-  content: '';
+.skeleton-overlay {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.1) 50%, 
-    transparent 100%);
+  height: 100%;
+  background: #374151;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: 1;
+  border-radius: 12px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .card-image img {
@@ -249,18 +275,48 @@ export default {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   filter: brightness(0.95) contrast(1.05);
   padding: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.certificate-card:hover .card-image img {
-  transform: scale(1.1);
-  filter: brightness(1) contrast(1.2);
+.card-image img.image-loaded {
+  opacity: 1;
+}
+
+/* Only apply expensive image effects on desktop */
+@media (min-width: 769px) {
+  .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.1) 50%, 
+      transparent 100%);
+  }
+  
+  .card-image img {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .certificate-card:hover .card-image img {
+    transform: scale(1.1);
+    filter: brightness(1) contrast(1.2);
+  }
 }
 
 /* Image fallback styling */
 .image-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -268,6 +324,8 @@ export default {
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.8rem;
   gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .fallback-icon {
@@ -351,7 +409,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: rgba(96, 165, 250, 0.9);
@@ -359,26 +416,49 @@ export default {
   font-weight: 500;
   padding: 12px 16px;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   margin-top: 16px;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
 }
 
-.view-credential-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
+/* Only apply expensive button effects on desktop */
+@media (min-width: 769px) {
+  .view-credential-btn {
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .view-credential-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
 
-.view-credential-btn:hover::before {
-  left: 100%;
+  .view-credential-btn:hover::before {
+    left: 100%;
+  }
+
+  .view-credential-btn:hover,
+  .view-credential-btn:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+  }
+  
+  .view-credential-btn .icon {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .view-credential-btn:hover .icon,
+  .view-credential-btn:focus .icon {
+    transform: translateX(2px);
+  }
 }
 
 .view-credential-btn:hover,
@@ -386,37 +466,45 @@ export default {
   background: rgba(96, 165, 250, 0.15);
   border-color: rgba(96, 165, 250, 0.3);
   color: rgba(147, 197, 253, 1);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
   outline: none;
 }
 
 .view-credential-btn .icon {
   width: 16px;
   height: 16px;
-  transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
-.view-credential-btn:hover .icon,
-.view-credential-btn:focus .icon {
-  transform: translateX(2px);
 }
 
 /* Staggered smooth fade-in animation */
 @keyframes fadeinSmooth {
   0% {
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 .fadein-smooth {
   opacity: 0;
-  animation: fadeinSmooth 0.8s cubic-bezier(0.23, 1, 0.320, 1) forwards;
+  animation: fadeinSmooth 0.5s ease-out forwards;
+}
+
+/* Reduce animation complexity on mobile */
+@media (max-width: 768px) {
+  @keyframes fadeinSmooth {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .fadein-smooth {
+    animation-duration: 0.3s;
+  }
 }
 
 /* Respect user's motion preferences */
@@ -468,10 +556,19 @@ export default {
   
   .certificate-card {
     height: 340px;
+    /* Remove will-change on mobile to reduce memory usage */
+    will-change: auto;
+    /* Disable hover effects on touch devices */
+    transform: none !important;
   }
   
   .card-image {
     height: 140px;
+  }
+  
+  /* Reduce animation delay on mobile for faster rendering */
+  .fadein-smooth {
+    animation-delay: 0s !important;
   }
   
   .card-body {

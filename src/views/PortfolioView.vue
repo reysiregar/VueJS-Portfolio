@@ -5,6 +5,12 @@ export default {
   components: {
     SkeletonCard
   },
+  props: {
+    showContent: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       activeTab: 1,
@@ -98,7 +104,7 @@ export default {
                 <div class="flex h-12 w-12 items-center justify-center p-0 h-full w-full lg:p-0 zoom-in">
                   <div v-if="item.imageLoading" class="w-full aspect-video bg-gray-700 rounded-xl animate-pulse"></div>
                   <img v-show="!item.imageLoading" @load="item.imageLoading = false" :alt="item.name" decoding="async" data-nimg="1" class="drop-shadow-xl rounded rounded-xl"
-                    :src="'/img/portfolio-' + item.imageUrl + '.png'">
+                    :src="'/img/portfolio-' + item.imageUrl + '.webp'">
                 </div>
                 <div class="w-full flex flex-col gap-2 items-center text-sm md:text-base lg:text-lg flex-grow">
                   <div class="title-text font-medium text-secondary">{{ item.name }}

@@ -1,5 +1,11 @@
 <script>
 export default {
+  props: {
+    showContent: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       activeTab: 1,

@@ -72,6 +72,12 @@ import Swal from 'sweetalert2';
 
 export default {
   name: "ContactView",
+  props: {
+    showContent: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       formData: {
