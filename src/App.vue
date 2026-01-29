@@ -180,7 +180,6 @@ export default {
     },
     toggleMobileMenu() {
       this.isMobileMenuOpen = !this.isMobileMenuOpen;
-      // Prevent body scroll when menu is open
       if (this.isMobileMenuOpen) {
         document.body.style.overflow = 'hidden';
       } else {
@@ -207,13 +206,12 @@ export default {
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    // Clean up body overflow
     document.body.style.overflow = '';
   },
   watch: {
-    // Close mobile menu when route changes
     $route() {
       this.closeMobileMenu();
+      window.scrollTo(0, 0);
     }
   }
 };
@@ -234,7 +232,6 @@ export default {
   box-sizing: border-box;
 }
 
-/* Hide scrollbar by default */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -242,7 +239,6 @@ export default {
   background: transparent;
 }
 
-/* Show scrollbar only when scrolling */
 body.scrolling ::-webkit-scrollbar {
   opacity: 1;
   background: initial;
@@ -262,7 +258,6 @@ body.scrolling ::-webkit-scrollbar-button {
   width: 20px;
 }
 
-/* Hide scrollbar for Firefox */
 html {
   scrollbar-width: none;
 }

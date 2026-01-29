@@ -67,15 +67,15 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior() {
+    return { top: 0, behavior: 'instant' };
+  }
 })
 
-// Update meta tags dynamically for SEO
-router.beforeEach((to, from, next) => {
-  // Update title
+router.beforeEach((to, _from, next) => {
   document.title = to.meta.title || 'Reynaldi Wiratama Siregar | Portfolio';
   
-  // Update or create meta description
   let metaDescription = document.querySelector('meta[name="description"]');
   if (!metaDescription) {
     metaDescription = document.createElement('meta');
@@ -84,7 +84,6 @@ router.beforeEach((to, from, next) => {
   }
   metaDescription.setAttribute('content', to.meta.description || '');
   
-  // Update or create meta keywords
   let metaKeywords = document.querySelector('meta[name="keywords"]');
   if (!metaKeywords) {
     metaKeywords = document.createElement('meta');
@@ -93,7 +92,6 @@ router.beforeEach((to, from, next) => {
   }
   metaKeywords.setAttribute('content', to.meta.keywords || '');
   
-  // Update Open Graph tags
   let ogTitle = document.querySelector('meta[property="og:title"]');
   if (ogTitle) ogTitle.setAttribute('content', to.meta.title || '');
   
@@ -103,14 +101,12 @@ router.beforeEach((to, from, next) => {
   let ogUrl = document.querySelector('meta[property="og:url"]');
   if (ogUrl) ogUrl.setAttribute('content', 'https://www.reynaldisiregar.me' + to.path);
   
-  // Update Twitter Card tags
   let twitterTitle = document.querySelector('meta[name="twitter:title"]');
   if (twitterTitle) twitterTitle.setAttribute('content', to.meta.title || '');
   
   let twitterDescription = document.querySelector('meta[name="twitter:description"]');
   if (twitterDescription) twitterDescription.setAttribute('content', to.meta.description || '');
   
-  // Update canonical URL
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement('link');
