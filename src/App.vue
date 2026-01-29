@@ -4,7 +4,7 @@
     <!-- Speed Insights Component -->
     <SpeedInsights />
     
-    <nav class="max-w-7xl px-5 md:fixed top-0 z-[98] w-screen backdrop-blur-md bg-[#121212] bg-opacity-80">
+    <nav class="max-w-7xl px-5 fixed top-0 z-[98] w-screen backdrop-blur-md bg-[#121212] bg-opacity-80">
       <div class="container mx-auto flex flex-wrap items-center justify-between">
         <button @click="redirectToHome" class="flex" aria-label="Go to Home">
           <span class="self-center text-lg text-blue-300 font-semibold whitespace-nowrap fadein-bot">Rey's Portfolio</span>
@@ -151,7 +151,7 @@
       </div>
     </div>
 
-    <div class="md:mt-[100px]">
+    <div class="mt-[100px]">
       <router-view :showContent="!isLoading" />
     </div>
   </div>
