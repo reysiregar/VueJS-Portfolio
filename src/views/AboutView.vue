@@ -119,16 +119,24 @@ export default {
         {
           id: 3,
           type: 'career',
-          institution: 'PT. Royal Trust',
-          period: 'August 2025 - September 2025',
-          role: "Data Entry",
-          description: "Responsible for data management and entry into the company's database."
+          institution: 'PT. Kereta Api Indonesia',
+          period: 'March 2026 - Present',
+          role: 'Data Entry Specialist',
+          description: 'Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.'
         },
         {
           id: 4,
           type: 'education',
           institution: 'ASAH Program by Dicoding',
           period: 'August 2025 - Present'
+        },
+        {
+          id: 5,
+          type: 'career',
+          institution: 'PT. Royal Trust',
+          period: 'August 2025 - September 2025',
+          role: "Data Entry",
+          description: "Responsible for data management and entry into the company's database."
         }
       ]
     };
