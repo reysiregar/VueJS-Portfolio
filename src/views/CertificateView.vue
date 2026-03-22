@@ -8,6 +8,9 @@ export default {
   },
   data() {
     return {
+      previewOnlyImages: ['sertifikat_kelulusan', 'sertifikat_pelatihan_1'],
+      activePreview: null,
+      previewImageIsPortrait: false,
       certificates: [
         {
             id: 1,
@@ -83,11 +86,55 @@ export default {
             imageUrl: 'sertifikat_kelulusan',
             imageLoading: true,
             imageError: false,
-            credentialUrl: 'https://www.dicoding.com/users/reysiregar',
-            topics: 'Intermediate, Front-End'
+            credentialUrl: '',
+            topics: 'Intermediate, Front-End',
+            previewInfo: 'Certificate of completion for the Intermediate Front-End Development learning path.'
+        },
+        {
+            id: 8,
+            name: 'Certificate of Training',
+            issuer: 'Gunadarma University',
+            issueDate: 'June 2025',
+            imageUrl: 'sertifikat_pelatihan_1',
+            imageLoading: true,
+            imageError: false,
+            credentialUrl: '',
+            topics: 'JavaScript Programming Languages Fundamental',
+            previewInfo: 'Training certification ID 825739 for JavaScript Programming Languages Fundamental.'
         }
       ]
     };
+  },
+  methods: {
+    needsPreviewModal(certificate) {
+      return this.previewOnlyImages.includes(certificate.imageUrl);
+    },
+    openCertificatePreview(certificate) {
+      this.activePreview = certificate;
+      this.previewImageIsPortrait = false;
+      document.body.style.overflow = 'hidden';
+    },
+    closeCertificatePreview() {
+      this.activePreview = null;
+      this.previewImageIsPortrait = false;
+      document.body.style.overflow = '';
+    },
+    handlePreviewImageLoad(event) {
+      const image = event.target;
+      this.previewImageIsPortrait = image.naturalHeight > image.naturalWidth;
+    },
+    handleKeydown(event) {
+      if (event.key === 'Escape' && this.activePreview) {
+        this.closeCertificatePreview();
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown);
+    document.body.style.overflow = '';
   },
   // Using the same inline @load/@error approach as Projects so the skeleton
   // shows until the <img> finishes, then we toggle visibility.
@@ -142,9 +189,22 @@ export default {
               </div>
               <div class="topics" :title="cert.topics">{{ cert.topics }}</div>
             </div>
-            <a 
-              :href="cert.credentialUrl" 
-              target="_blank" 
+            <button
+              v-if="needsPreviewModal(cert)"
+              type="button"
+              class="view-credential-btn"
+              :aria-label="`Preview ${cert.name} details`"
+              @click="openCertificatePreview(cert)"
+            >
+              <span>Preview Certificate</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zM8.75 8.5a1.25 1.25 0 112.5 0v1.25h.25a.75.75 0 010 1.5h-.25v.25a1.25 1.25 0 11-2.5 0v-.25H8.5a.75.75 0 010-1.5h.25V8.5z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a
+              v-else
+              :href="cert.credentialUrl"
+              target="_blank"
               rel="noreferrer"
               class="view-credential-btn"
               :aria-label="`View ${cert.name} credential`"
@@ -157,6 +217,46 @@ export default {
           </div>
         </div>
       </section>
+
+      <div
+        v-if="activePreview"
+        class="certificate-modal-overlay"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="`${activePreview.name} preview`"
+        @click.self="closeCertificatePreview"
+      >
+        <div class="certificate-modal-card" :class="{ 'portrait-layout': previewImageIsPortrait }">
+          <button
+            type="button"
+            class="modal-close-btn"
+            aria-label="Close certificate preview"
+            @click="closeCertificatePreview"
+          >
+            ×
+          </button>
+
+          <div class="modal-image-wrap">
+            <img
+              :src="'/img/certificates/' + activePreview.imageUrl + '.webp'"
+              :alt="activePreview.name"
+              class="modal-image"
+              :class="{ 'portrait-preview': previewImageIsPortrait }"
+              @load="handlePreviewImageLoad"
+            >
+          </div>
+
+          <div class="modal-content">
+            <h3 class="modal-title">{{ activePreview.name }}</h3>
+            <p class="modal-meta">
+              <strong>{{ activePreview.issuer }}</strong>
+              <span>{{ activePreview.issueDate }}</span>
+            </p>
+            <p class="modal-topics">{{ activePreview.topics }}</p>
+            <p class="modal-description">{{ activePreview.previewInfo }}</p>
+          </div>
+        </div>
+      </div>
     </article>
   </div>
 </template>
@@ -423,6 +523,109 @@ export default {
   flex-shrink: 0;
 }
 
+.certificate-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.certificate-modal-card {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.9fr);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.certificate-modal-card.portrait-layout {
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  color: rgba(226, 232, 240, 0.95);
+  background: rgba(15, 23, 42, 0.85);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-image-wrap {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image {
+  width: 100%;
+  max-height: calc(100vh - 92px);
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.modal-image.portrait-preview {
+  max-height: calc(100vh - 150px);
+}
+
+.modal-content {
+  padding: 20px 18px 18px 6px;
+  color: rgba(248, 250, 252, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.modal-meta {
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgba(186, 230, 253, 0.95);
+  font-size: 0.84rem;
+}
+
+.modal-topics {
+  margin: 8px 0 0;
+  color: rgba(147, 197, 253, 1);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.modal-description {
+  margin: 10px 0 0;
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 /* Only apply expensive button effects on desktop */
 @media (min-width: 769px) {
   .view-credential-btn {
@@ -598,6 +801,43 @@ export default {
     width: 14px;
     height: 14px;
   }
+
+  .certificate-modal-overlay {
+    padding: 12px;
+  }
+
+  .certificate-modal-card {
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 24px);
+  }
+
+  .certificate-modal-card.portrait-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-close-btn {
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    font-size: 1.15rem;
+  }
+
+  .modal-image-wrap {
+    padding: 12px 12px 6px;
+  }
+
+  .modal-image {
+    max-height: 40vh;
+  }
+
+  .modal-image.portrait-preview {
+    max-height: 34vh;
+  }
+
+  .modal-content {
+    padding: 8px 12px 14px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -612,6 +852,34 @@ export default {
   
   .card-body {
     padding: 12px 16px 16px;
+  }
+
+  .certificate-modal-overlay {
+    padding: 8px;
+  }
+
+  .certificate-modal-card {
+    max-height: calc(100vh - 16px);
+  }
+
+  .modal-image-wrap {
+    padding: 10px 10px 6px;
+  }
+
+  .modal-image {
+    max-height: 34vh;
+  }
+
+  .modal-image.portrait-preview {
+    max-height: 30vh;
+  }
+
+  .modal-content {
+    padding: 6px 10px 12px;
+  }
+
+  .modal-title {
+    font-size: 1.05rem;
   }
 }
 </style>
