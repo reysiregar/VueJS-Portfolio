@@ -11,6 +11,7 @@ export default {
       previewOnlyImages: ['sertifikat_kelulusan', 'sertifikat_pelatihan_1'],
       activePreview: null,
       previewImageIsPortrait: false,
+      showScrollGuide: false,
       certificates: [
         {
             id: 1,
@@ -112,16 +113,36 @@ export default {
     openCertificatePreview(certificate) {
       this.activePreview = certificate;
       this.previewImageIsPortrait = false;
+      this.showScrollGuide = false;
       document.body.style.overflow = 'hidden';
     },
     closeCertificatePreview() {
       this.activePreview = null;
       this.previewImageIsPortrait = false;
+      this.showScrollGuide = false;
       document.body.style.overflow = '';
     },
     handlePreviewImageLoad(event) {
       const image = event.target;
       this.previewImageIsPortrait = image.naturalHeight > image.naturalWidth;
+      this.$nextTick(() => {
+        this.updateScrollGuide();
+      });
+    },
+    handleImageWrapScroll() {
+      this.updateScrollGuide();
+    },
+    updateScrollGuide() {
+      const imageWrap = this.$refs.previewImageWrap;
+
+      if (!this.previewImageIsPortrait || !imageWrap) {
+        this.showScrollGuide = false;
+        return;
+      }
+
+      const hasOverflow = imageWrap.scrollHeight > imageWrap.clientHeight + 4;
+      const isNearBottom = imageWrap.scrollTop + imageWrap.clientHeight >= imageWrap.scrollHeight - 8;
+      this.showScrollGuide = hasOverflow && !isNearBottom;
     },
     handleKeydown(event) {
       if (event.key === 'Escape' && this.activePreview) {
@@ -236,14 +257,20 @@ export default {
             ×
           </button>
 
-          <div class="modal-image-wrap">
-            <img
-              :src="'/img/certificates/' + activePreview.imageUrl + '.webp'"
-              :alt="activePreview.name"
-              class="modal-image"
-              :class="{ 'portrait-preview': previewImageIsPortrait }"
-              @load="handlePreviewImageLoad"
-            >
+          <div class="modal-image-frame">
+            <div class="modal-image-wrap" ref="previewImageWrap" @scroll.passive="handleImageWrapScroll">
+              <img
+                :src="'/img/certificates/' + activePreview.imageUrl + '.webp'"
+                :alt="activePreview.name"
+                class="modal-image"
+                :class="{ 'portrait-preview': previewImageIsPortrait }"
+                @load="handlePreviewImageLoad"
+              >
+            </div>
+            <div v-if="showScrollGuide" class="scroll-guide" aria-hidden="true">
+              <span>Scroll to view full certificate</span>
+              <span class="scroll-guide-arrow">↓</span>
+            </div>
           </div>
 
           <div class="modal-content">
@@ -550,7 +577,7 @@ export default {
 }
 
 .certificate-modal-card.portrait-layout {
-  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.9fr);
 }
 
 .modal-close-btn {
@@ -566,6 +593,8 @@ export default {
   font-size: 1.4rem;
   line-height: 1;
   cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.35);
 }
 
 .modal-image-wrap {
@@ -573,6 +602,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  position: relative;
+}
+
+.modal-image-frame {
+  position: relative;
+  min-height: 0;
+  z-index: 1;
 }
 
 .modal-image {
@@ -584,7 +623,53 @@ export default {
 }
 
 .modal-image.portrait-preview {
-  max-height: calc(100vh - 150px);
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  margin-inline: auto;
+  display: block;
+}
+
+.certificate-modal-card.portrait-layout .modal-image-wrap {
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: flex-start;
+}
+
+.scroll-guide {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: rgba(226, 232, 240, 0.95);
+  background: rgba(15, 23, 42, 0.86);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+  padding: 6px 10px;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.scroll-guide-arrow {
+  display: inline-block;
+  animation: scrollHintBob 1.1s ease-in-out infinite;
+}
+
+@keyframes scrollHintBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
 }
 
 .modal-content {
@@ -832,11 +917,30 @@ export default {
   }
 
   .modal-image.portrait-preview {
-    max-height: 34vh;
+    max-height: none;
   }
 
   .modal-content {
     padding: 8px 12px 14px;
+  }
+
+  .certificate-modal-card.portrait-layout .modal-image-wrap {
+    max-height: 42vh;
+    min-height: 0;
+    padding: 40px 10px 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+  }
+
+  .certificate-modal-card.portrait-layout .modal-content {
+    padding: 8px 12px 14px;
+  }
+
+  .scroll-guide {
+    bottom: 8px;
+    font-size: 0.68rem;
+    padding: 5px 9px;
   }
 }
 
@@ -871,7 +975,8 @@ export default {
   }
 
   .modal-image.portrait-preview {
-    max-height: 30vh;
+    max-height: none;
+    max-width: 100%;
   }
 
   .modal-content {
@@ -880,6 +985,21 @@ export default {
 
   .modal-title {
     font-size: 1.05rem;
+  }
+
+  .certificate-modal-card.portrait-layout .modal-image-wrap {
+    max-height: 40vh;
+    padding: 34px 8px 6px;
+  }
+
+  .certificate-modal-card.portrait-layout .modal-content {
+    padding: 6px 10px 12px;
+  }
+
+  .scroll-guide {
+    bottom: 6px;
+    font-size: 0.64rem;
+    padding: 4px 8px;
   }
 }
 </style>
