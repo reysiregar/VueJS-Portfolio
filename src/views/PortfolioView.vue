@@ -27,17 +27,27 @@ export default {
           demo: 'https://reysiregar-portfolio-v2.vercel.app/'
         },
         {
-          id: 2,
-          name: 'Christmas Invitation',
-          imageUrl: 'portfolio-v1',
+          id: 5,
+          name: 'Jewelry Commerce Website',
+          imageUrl: 'portfolio-v5',
           imageLoading: true,
-          status: 'Website of Christmas Invitation for My Church, giving guest the Event details like location, date & time, etc. (Private Project -> Wanna have the code? Contact me for more information.)',
-          tech: 'JavaScript, SCSS',
-          github: 'https://github.com/reysiregar/portfolio-v2',
-          demo: 'https://christmas-website-pdd.vercel.app'
+          status: 'Lumiere Commerce is a college team project. This website allows users to browse and purchase various jewelry products online.',
+          tech: 'ReactJS, Tailwind, Express 4, Radix UI',
+          github: 'https://github.com/reysiregar/JewelryCommerce',
+          demo: 'https://lumiere-commerce.vercel.app'
         },
         {
           id: 3,
+          name: 'Halal Scanner Website',
+          imageUrl: 'portfolio-v4',
+          imageLoading: true,
+          status: 'Halal Scanner lets you check food and drink products in seconds, just snap or upload the ingredients list and get instant halal verification.',
+          tech: 'ReactJS, Tailwind, Node.js, Express.js, Vite',
+          github: 'https://github.com/reysiregar/halal-scanner',
+          demo: 'https://ai-halal-scanner.vercel.app'
+        },
+        {
+          id: 4,
           name: 'Church Community Website',
           imageUrl: 'portfolio-v3',
           imageLoading: true,
@@ -47,24 +57,14 @@ export default {
           demo: 'https://nhkbpmj.vercel.app'
         },
         {
-          id: 4,
-          name: 'Halal Scanner Website',
-          imageUrl: 'portfolio-v4',
+          id: 2,
+          name: 'Christmas Invitation',
+          imageUrl: 'portfolio-v1',
           imageLoading: true,
-          status: 'Halal Scanner lets you check food and drink products in seconds — just snap or upload the ingredients list and get instant halal verification.',
-          tech: 'ReactJS, Tailwind, Node.js, Express.js, Vite',
-          github: 'https://github.com/reysiregar/halal-scanner',
-          demo: 'https://ai-halal-scanner.vercel.app'
-        },
-        {
-          id: 5,
-          name: 'Jewelry Commerce Website',
-          imageUrl: 'portfolio-v5',
-          imageLoading: true,
-          status: 'Lumiere Commerce is a college team project. This website allows users to browse and purchase various jewelry products online.',
-          tech: 'ReactJS, Tailwind, Express 4, Radix UI',
-          github: 'https://github.com/reysiregar/JewelryCommerce',
-          demo: 'https://lumiere-commerce.vercel.app'
+          status: 'Website of Christmas Invitation for My Church, giving guest the Event details like location, date & time, etc. (Private Project -> Wanna have the code? Contact me for more information.)',
+          tech: 'JavaScript, SCSS',
+          github: 'https://github.com/reysiregar/portfolio-v2',
+          demo: 'https://christmas-website-pdd.vercel.app'
         }
       ]
     };
