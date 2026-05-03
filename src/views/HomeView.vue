@@ -1,7 +1,7 @@
 <template>
   <main class="home-grid" itemscope itemtype="https://schema.org/Person">
     <section class="home-copy" itemscope itemtype="https://schema.org/Person">
-      <p :class="['eyebrow', showContent ? 'animate-fade-up' : 'opacity-0']">Welcome to my portfolio</p>
+      <p :class="['eyebrow', showContent ? 'animate-fade-up' : 'opacity-0']">Welcome to my portfolio website</p>
       <h1 :class="['hero-title', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Siregar</h1>
       <div class="py-1">
         <TypeWriter 
