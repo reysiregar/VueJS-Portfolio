@@ -1,9 +1,14 @@
 <template>
   <div class="preloader">
-    <div class="atom">
-      <div class="electron"></div>
-      <div class="electron"></div>
-      <div class="electron"></div>
+    <div class="panel">
+      <div class="stack">
+        <span class="label">Loading</span>
+        <div class="blocks" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,108 +26,82 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #1e1e1e;
+  background:
+    radial-gradient(circle at top left, rgba(255, 216, 77, 0.35), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(47, 107, 255, 0.22), transparent 32%),
+    #f7f3e8;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
-@keyframes atom {
-  from { transform: none; }
-  to { transform: translateY(-10px); }
-}
-@keyframes electron-circle1 {
-  from { transform: rotateY(70deg) rotateZ(20deg); }
-  to { transform: rotateY(70deg) rotateZ(380deg); }
-}
-@keyframes electron1 {
-  from { transform: rotateZ(-20deg) rotateY(-70deg); }
-  to { transform: rotateZ(-380deg) rotateY(-70deg); }
-}
-@keyframes electron-circle2 {
-  from { transform: rotateY(60deg) rotateX(60deg) rotateZ(-30deg); }
-  to { transform: rotateY(60deg) rotateX(60deg) rotateZ(330deg); }
-}
-@keyframes electron2 {
-  from { transform: rotateZ(30deg) rotateX(-60deg) rotateY(-60deg); }
-  to { transform: rotateZ(-330deg) rotateX(-60deg) rotateY(-60deg); }
-}
-@keyframes electron-circle3 {
-  from { transform: rotateY(-60deg) rotateX(60deg) rotateZ(100deg); }
-  to { transform: rotateY(-60deg) rotateX(60deg) rotateZ(460deg); }
-}
-@keyframes electron3 {
-  from { transform: rotateZ(-100deg) rotateX(-60deg) rotateY(60deg); }
-  to { transform: rotateZ(-460deg) rotateX(-60deg) rotateY(60deg); }
-}
-.atom {
-  margin: 50px auto;
-  width: 120px;
-  height: 120px;
-  position: relative;
-  animation: atom 1s ease-in-out infinite alternate;
-  perspective: 300px;
-  transform-style: preserve-3d;
+.panel {
+  padding: 1rem;
+  border: 4px solid #111111;
+  background: #ffd84d;
+  box-shadow: 10px 10px 0 #111111;
+  transform: rotate(-3deg);
 }
 
-/* Respect user's motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .atom,
-  .atom .electron,
-  .atom .electron:before {
-    animation: none;
+.stack {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  min-width: 16rem;
+}
+
+.label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.blocks {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.blocks span {
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 3px solid #111111;
+  background: #2f6bff;
+  display: inline-block;
+  animation: pop 0.85s infinite ease-in-out;
+}
+
+.blocks span:nth-child(2) {
+  animation-delay: 0.12s;
+  background: #ff5c4d;
+}
+
+.blocks span:nth-child(3) {
+  animation-delay: 0.24s;
+  background: #53d9a7;
+}
+
+@keyframes pop {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.45rem);
   }
 }
-.atom:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background: #f3f4f6;
-}
-.atom .electron {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  border: 2px solid #f3f4f6;
-  transform-style: preserve-3d;
-}
-.atom .electron:before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-  background: #fff;
-  transform-origin: 50% 50% 0;
-}
-.atom .electron:nth-child(1) {
-  transform: rotateY(70deg) rotateZ(20deg);
-  animation: electron-circle1 3s linear infinite;
-}
-.atom .electron:nth-child(2) {
-  transform: rotateY(60deg) rotateX(60deg) rotateZ(-30deg);
-  animation: electron-circle2 3s linear infinite;
-}
-.atom .electron:nth-child(3) {
-  transform: rotateY(-60deg) rotateX(60deg) rotateZ(100deg);
-  animation: electron-circle3 3s linear infinite;
+
+@media (prefers-reduced-motion: reduce) {
+  .blocks span {
+    animation: none;
+  }
+
+  .panel {
+    transform: none;
+  }
 }
 .atom .electron:nth-child(1):before {
   transform: rotateZ(-20deg) rotateY(-70deg);

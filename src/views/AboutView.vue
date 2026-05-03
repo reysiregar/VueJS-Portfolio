@@ -1,489 +1,677 @@
+<template>
+  <main class="about-page">
+    <section class="hero-card" :class="showContent ? 'animate-in' : 'is-hidden'">
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <span class="eyebrow">About me</span>
+          <h1 class="hero-title">Designing useful interfaces with a bold, tactile feel.</h1>
+
+          <div class="hero-text-card">
+            <p>
+              I’m Reynaldi Siregar, a front-end web developer based in Bekasi, Indonesia. I like turning
+              ideas into interfaces that feel direct, readable, and memorable.
+            </p>
+            <p>
+              My focus is clean implementation with strong visual hierarchy, so the final product looks
+              sharp without losing usability.
+            </p>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="portrait-frame">
+            <img
+              src="/img/profile.webp"
+              alt="Profile picture of Reynaldi Siregar"
+              class="portrait"
+            />
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <span class="metric-value">Vue</span>
+              <span class="metric-label">Primary stack</span>
+            </div>
+            <div class="metric-card metric-card-accent">
+              <span class="metric-value">Bold</span>
+              <span class="metric-label">Visual style</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">1+</span>
+              <span class="metric-label">Years building</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="journey-section" :class="showContent ? 'animate-in delay-1' : 'is-hidden'">
+      <div class="section-head">
+        <span class="eyebrow eyebrow-alt">Journey</span>
+        <h2>Experience and education</h2>
+      </div>
+
+      <div class="journey-grid">
+        <article class="panel panel-green">
+          <div class="panel-head">
+            <span class="panel-icon">Work</span>
+            <h3>Experience</h3>
+          </div>
+
+          <div class="timeline-stack">
+            <div v-for="item in careerTimeline" :key="item.id" class="timeline-card">
+              <p class="timeline-period">{{ item.period }}</p>
+              <h4>{{ item.role }}</h4>
+              <p class="timeline-institution">{{ item.institution }}</p>
+              <p class="timeline-description">{{ item.description }}</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel panel-blue">
+          <div class="panel-head">
+            <span class="panel-icon">Study</span>
+            <h3>Education</h3>
+          </div>
+
+          <div class="timeline-stack">
+            <div v-for="item in educationTimeline" :key="item.id" class="timeline-card timeline-card-soft">
+              <p class="timeline-period">{{ item.period }}</p>
+              <h4>{{ item.institution }}</h4>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="skills-section" :class="showContent ? 'animate-in delay-2' : 'is-hidden'">
+      <div class="section-head">
+        <span class="eyebrow eyebrow-alt">Toolkit</span>
+        <h2>Tech stack and tools</h2>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button" :class="{ active: activeTab === 1 }" @click="activeTab = 1">Tech Stack</button>
+        <button class="tab-button tab-button-alt" :class="{ active: activeTab === 2 }" @click="activeTab = 2">Tools</button>
+      </div>
+
+      <div v-show="activeTab === 1" class="skill-grid">
+        <article v-for="item in tech" :key="item.id" class="skill-card">
+          <div class="skill-icon-wrap">
+            <img :src="item.imageUrl" :alt="item.name" class="skill-icon" loading="lazy" />
+          </div>
+          <div>
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.status }}</p>
+          </div>
+        </article>
+      </div>
+
+      <div v-show="activeTab === 2" class="skill-grid">
+        <article v-for="item in tools" :key="item.id" class="skill-card skill-card-alt">
+          <div class="skill-icon-wrap skill-icon-wrap-alt">
+            <img :src="item.imageUrl" :alt="item.name" class="skill-icon" loading="lazy" />
+          </div>
+          <div>
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.status }}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</template>
+
 <script>
 export default {
   props: {
     showContent: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       activeTab: 1,
       tech: [
-        {
-          id: 1,
-          name: 'HTML',
-          imageUrl: 'https://cdn-icons-png.flaticon.com/512/1051/1051277.png',
-          status: 'Beginner'
-        },
-        {
-          id: 2,
-          name: 'CSS',
-          imageUrl: 'https://cdn-icons-png.flaticon.com/512/732/732190.png',
-          status: 'Beginner'
-        },
-        {
-          id: 3,
-          name: 'Javascript',
-          imageUrl: 'https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.svg',
-          status: 'Beginner'
-        },
-        {
-          id: 4,
-          name: 'VueJS',
-          imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png?f=webp',
-          status: 'Beginner'
-        },
-        {
-          id: 5,
-          name: 'NodeJS',
-          imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-node-js-1174925.png',
-          status: 'Beginner'
-        },
-        {
-          id: 6,
-          name: 'Tailwind',
-          imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg',
-          status: 'Beginner'
-        },
-        {
-          id: 7,
-          name: 'ReactJS',
-          imageUrl: 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png',
-          status: 'Beginner'
-        }
+        { id: 1, name: 'HTML', imageUrl: 'https://cdn-icons-png.flaticon.com/512/1051/1051277.png', status: 'Beginner' },
+        { id: 2, name: 'CSS', imageUrl: 'https://cdn-icons-png.flaticon.com/512/732/732190.png', status: 'Beginner' },
+        { id: 3, name: 'Javascript', imageUrl: 'https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.svg', status: 'Beginner' },
+        { id: 4, name: 'VueJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png?f=webp', status: 'Beginner' },
+        { id: 5, name: 'NodeJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-node-js-1174925.png', status: 'Beginner' },
+        { id: 6, name: 'Tailwind', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg', status: 'Beginner' },
+        { id: 7, name: 'ReactJS', imageUrl: 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png', status: 'Beginner' },
       ],
       tools: [
-        {
-          id: 1,
-          name: 'Git',
-          imageUrl: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png',
-          status: 'Version Control'
-        },
-        {
-          id: 2,
-          name: 'GitHub',
-          imageUrl: 'https://icon-library.com/images/github-icon-white/github-icon-white-6.jpg',
-          status: 'Git Hosting'
-        },
-        {
-          id: 3,
-          name: 'NPM',
-          imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-npm-3-1175132.png',
-          status: 'Package Manager'
-        },
-        {
-          id: 4,
-          name: 'Vercel',
-          imageUrl: 'https://vercel.com/favicon.ico',
-          status: 'Deployment'
-        },
-        {
-          id: 5,
-          name: 'Xampp',
-          imageUrl: 'https://www.apachefriends.org/images/xampp-logo-ac950edf.svg',
-          status: 'Local Server'
-        },
-        {
-          id: 6,
-          name: 'Postman',
-          imageUrl: '/img/postman-icon.svg',
-          status: 'API Testing'
-        },
-        {
-          id: 7,
-          name: 'Figma',
-          imageUrl: '/img/figma-icon.svg',
-          status: 'Design'
-        },
-        {
-          id: 8,
-          name: 'Docker',
-          imageUrl: '/img/docker-icon.svg',
-          status: 'Containerization'
-        }
+        { id: 1, name: 'Git', imageUrl: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png', status: 'Version Control' },
+        { id: 2, name: 'GitHub', imageUrl: '/img/github-icon.svg', status: 'Git Hosting' },
+        { id: 3, name: 'NPM', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-npm-3-1175132.png', status: 'Package Manager' },
+        { id: 4, name: 'Vercel', imageUrl: 'https://vercel.com/favicon.ico', status: 'Deployment' },
+        { id: 5, name: 'Xampp', imageUrl: 'https://www.apachefriends.org/images/xampp-logo-ac950edf.svg', status: 'Local Server' },
+        { id: 6, name: 'Postman', imageUrl: '/img/postman-icon.svg', status: 'API Testing' },
+        { id: 7, name: 'Figma', imageUrl: '/img/figma-icon.svg', status: 'Design' },
+        { id: 8, name: 'Docker', imageUrl: '/img/docker-icon.svg', status: 'Containerization' },
       ],
       timeline: [
-        {
-          id: 1,
-          type: 'education',
-          institution: 'SMA Negeri 9 Kota Bekasi',
-          period: 'July 2020 - Mei 2023'
-        },
-        {
-          id: 2,
-          type: 'education',
-          institution: 'Gunadarma University',
-          period: 'September 2023 - Present'
-        },
-        {
-          id: 3,
-          type: 'career',
-          institution: 'PT. Kereta Api Indonesia',
-          period: 'March 2026 - Present',
-          role: 'Data Entry Specialist',
-          description: 'Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.'
-        },
-        {
-          id: 4,
-          type: 'education',
-          institution: 'ASAH Program by Dicoding',
-          period: 'August 2025 - Present'
-        },
-        {
-          id: 5,
-          type: 'career',
-          institution: 'PT. Royal Trust',
-          period: 'August 2025 - September 2025',
-          role: "Data Entry",
-          description: "Responsible for data management and entry into the company's database."
-        }
-      ]
+        { id: 1, type: 'education', institution: 'SMA Negeri 9 Kota Bekasi', period: 'July 2020 - Mei 2023' },
+        { id: 2, type: 'education', institution: 'Gunadarma University', period: 'September 2023 - Present' },
+        { id: 3, type: 'career', institution: 'PT. Kereta Api Indonesia', period: 'March 2026 - Present', role: 'Data Entry Specialist', description: 'Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.' },
+        { id: 4, type: 'education', institution: 'ASAH Program by Dicoding', period: 'August 2025 - Present' },
+        { id: 5, type: 'career', institution: 'PT. Royal Trust', period: 'August 2025 - September 2025', role: 'Data Entry', description: "Responsible for data management and entry into the company's database." },
+      ],
     };
-  }
-}
+  },
+  computed: {
+    careerTimeline() {
+      return this.timeline.filter((item) => item.type === 'career');
+    },
+    educationTimeline() {
+      return this.timeline.filter((item) => item.type === 'education');
+    },
+  },
+};
 </script>
-<template>
-  <div
-    class="bg-[#1e1e1f] px-5 py-5 md:px-12 md:py-10 text-left border border-[#383838] rounded-3xl text-blue-50 mx-3 mb-5">
-    <article data-page="about">
-      <header>
-        <div class="text-2xl font-bold text-white mb-5 fadein-bot title-section flex items-center">
-          About Me &nbsp;
-          <div class="h-[1px] w-32 bg-blue-200 md:w-96 aos-init aos-animate" data-aos="zoom-in-left"
-            data-aos-duration="600"></div>
-        </div>
-      </header>
-      <section
-        class="text-sm md:text-lg text-justify flex flex-col gap-4 md:flex-row md:gap-8 md:justify-left md:items-center">
-        <div class="flex justify-center">
-          <img class="w-9/12 rounded-full mb-3 fadein-up"
-            src="/img/profile.jpg" alt="Profile picture of Reynaldi Siregar">
-        </div>
-        <div class="md:w-7/12">
-          <p class="mb-3 md:mb-7 fadein-left fadeins-1">
-            &nbsp; &nbsp; &nbsp; Hello! I'm <strong>Reynaldi Siregar</strong>, a <strong>Front-End Web Developer</strong> based in Bekasi, Indonesia. With a year of experience in building modern, responsive websites, I focus on creating clean, efficient, and user-friendly interfaces that deliver real value.
-          </p>
-          <p class="mb-3 fadein-left fadeins-2">
-            &nbsp; &nbsp; &nbsp; I enjoy turning ideas into functional and visually appealing web experiences using the latest tools and technologies. Whether you're a business or an individual, I’m ready to help bring your digital vision to life—one line of code at a time.
-          </p>
-        </div>
-      </section>
-    </article>
-  </div>
 
-  <!-- My Journey Section -->
-  <section class="my-journey py-12 px-5 md:px-12 text-blue-50">
-    <div class="container mx-auto grid md:grid-cols-2 gap-12">
-      
-      <!-- Career / Work Experience -->
-      <div>
-        <div class="flex items-center mb-8">
-          <div class="bg-green-500/10 p-2 rounded-full mr-3">
-            <img src="img/suitcase.png" alt="Work" class="w-6 h-6"
-                style="filter: invert(41%) sepia(96%) saturate(448%) hue-rotate(92deg) brightness(94%) contrast(89%);" />
-          </div>
-          <h2 class="text-2xl font-bold text-green-400">Experience</h2>
-        </div>
-        <div class="space-y-6">
-          <div v-for="item in timeline.filter(t => t.type === 'career')" 
-              :key="item.id" 
-              class="note-box-green text-left">
-            <h3 class="text-lg font-semibold">{{ item.role }}</h3>
-            <p v-if="item.institution" class="text-base font-medium text-green-300 mt-1 mb-1">{{ item.institution }}</p>
-            <p v-if="item.period" class="text-sm opacity-80 mb-2">{{ item.period }}</p>
-            <p v-if="item.description" class="text-sm opacity-80 mt-2">{{ item.description }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Education -->
-      <div>
-        <div class="flex items-center mb-8">
-          <div class="bg-blue-500/10 p-2 rounded-full mr-3">
-            <img src="img/graduate-hat.png" alt="Education" class="w-6 h-6"
-                style="filter: invert(35%) sepia(93%) saturate(574%) hue-rotate(189deg) brightness(92%) contrast(89%);" />
-          </div>
-          <h2 class="text-2xl font-bold text-blue-400">Education</h2>
-        </div>
-        <div class="space-y-6">
-          <div v-for="item in timeline.filter(t => t.type === 'education')" 
-              :key="item.id" 
-              class="note-box-blue text-left">
-            <h3 class="text-lg font-semibold">{{ item.institution }}</h3>
-            <p class="text-sm opacity-80">{{ item.period }}</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="px-5 py-5 md:px-12 md:py-10 text-left text-blue-50 mx-3">
-    <article data-page="about">
-      <header>
-        <div class="text-2xl font-bold text-white mb-5 fadein-bot title-section flex items-center">
-          <div class="h-[1px] w-10 bg-blue-200 md:w-20 aos-init aos-animate" data-aos="zoom-in-left"
-            data-aos-duration="600"></div>
-          &nbsp; Tech & Tools
-        </div>
-      </header>
-      <section>
-        <div>
-          <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 mb-5">
-            <li class="mr-2">
-              <button class="inline-block px-4 py-3 rounded-lg hover:text-white"
-                :class="{ 'text-blue-200 bg-blue-200 bg-opacity-10': activeTab === 1 }" @click="activeTab = 1">Tech Stack</button>
-            </li>
-            <li class="mr-2">
-              <button class="inline-block px-4 py-3 rounded-lg hover:text-white"
-                :class="{ 'text-blue-200 bg-blue-200 bg-opacity-10': activeTab === 2 }" @click="activeTab = 2">Tools</button>
-            </li>
-          </ul>
-        </div>
-        <div v-show="activeTab === 1">
-          <div class="grid grid-cols-2 gap-4 pb-32 md:grid-cols-3 md:gap-8 xl:grid-cols-4 xl:gap-10 2xl:gap-12">
-            <div v-for="item in tech" :key="item.id">
-              <div
-                class="item-tech flex cursor-pointer items-center gap-2 rounded border border-blue-200 px-2 py-2 hover:bg-blue-200 hover:bg-opacity-10 md:gap-3 lg:px-3">
-                <div class="flex h-12 w-12 items-center justify-center p-0 lg:h-16 lg:w-16 lg:p-2 zoom-in">
-                  <img alt="HTML" width="32" height="32" decoding="async" data-nimg="1"
-                    class="img-tech drop-shadow-xl transition-all duration-300 h-[65%] w-[65%] lg:h-[85%] lg:w-[85%]  "
-                    :src="item.imageUrl" style="color: transparent;">
-                </div>
-                <div class="flex items-center text-sm md:text-base lg:text-lg">
-                  <div class="tech font-medium text-secondary transition-all duration-300 translate-y-0 ">{{ item.name }}
-                  </div>
-                  <div
-                    class="status-tech opacity-0 absolute mt-5 text-[10px] text-blue-200 transition-all duration-300 md:text-xs lg:text-sm">
-                    {{ item.status }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-show="activeTab === 2">
-          <div class="grid grid-cols-2 gap-4 pb-32 md:grid-cols-3 md:gap-8 xl:grid-cols-4 xl:gap-10 2xl:gap-12">
-            <div v-for="item in tools" :key="item.id">
-              <div
-                class="item-tech flex cursor-pointer items-center gap-2 rounded border border-blue-200 px-2 py-2 hover:bg-blue-200 hover:bg-opacity-10 md:gap-3 lg:px-3">
-                <div class="flex h-12 w-12 items-center justify-center p-0 lg:h-16 lg:w-16 lg:p-2 zoom-in">
-                  <img alt="HTML" width="32" height="32" decoding="async" data-nimg="1"
-                    class="img-tech drop-shadow-xl transition-all duration-300 h-[65%] w-[65%] lg:h-[85%] lg:w-[85%]  "
-                    :src="item.imageUrl" style="color: transparent;">
-                </div>
-                <div class="flex items-center text-sm md:text-base lg:text-lg">
-                  <div class="tech font-medium text-secondary transition-all duration-300 translate-y-0 ">{{ item.name }}
-                  </div>
-                  <div
-                    class="status-tech opacity-0 absolute mt-5 text-[10px] text-blue-200 transition-all duration-300 md:text-xs lg:text-sm">
-                    {{ item.status }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </article>
-  </div>
-</template>
-
-<style>
-.fadein-left {
-  opacity: 0;
-  animation: fadeInSmooth 0.8s ease-out forwards;
-}
-
-@keyframes fadeInSmooth {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.fadeins-1 {
-  animation-delay: 500ms;
-}
-
-.fadeins-2 {
-  animation-delay: 800ms;
-}
-
-/* Respect user's motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .fadein-left,
-  .fadeins-1,
-  .fadeins-2 {
-    animation: none;
-    opacity: 1 !important;
-  }
-}
-
-.img-tech,
-.tech {
-  transition: transform 0.3s ease;
-}
-
-.item-tech:hover .img-tech {
-  transform: scale(1.3);
-}
-
-.item-tech:hover .tech {
-  transform: translateY(-12px);
-}
-
-.item-tech:hover .status-tech {
-  opacity: 1;
-}
-
-.timeline {
-  position: relative;
-  margin-left: 1.5rem;
-  padding-left: 1.5rem;
-  border-left: 2px solid #a5b4fc;
-}
-.timeline-item {
-  position: relative;
-  margin-bottom: 1.5rem;
-  padding-left: 0.5rem;
-}
-.timeline-dot {
-  position: absolute;
-  left: -1.1rem;
-  top: 0.3rem;
-  width: 0.8rem;
-  height: 0.8rem;
-  background: #a5b4fc;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 2px #a5b4fc;
-}
-.timeline-content {
-  margin-left: 0.5rem;
-}
-.timeline-cards {
+<style scoped>
+.about-page {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-width: 700px;
+  gap: 0.9rem;
+}
+
+.hero-card,
+.panel,
+.skills-section {
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 8px 8px 0 #111111;
+}
+
+.hero-card,
+.skills-section {
+  padding: clamp(0.9rem, 2vw, 1.35rem);
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #ffd84d 0%, #f7f3e8 42%, #53d9a7 100%);
+}
+
+.section-head,
+.panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0.5rem 0.75rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: 5px 5px 0 #111111;
+}
+
+.eyebrow-alt {
+  background: #2f6bff;
+  color: #f7f3e8;
+}
+
+.hero-title,
+.section-head h2,
+.panel-head h3,
+.skill-card h3,
+.timeline-card h4 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  color: #111111;
+}
+
+.hero-title {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(1.85rem, 3vw, 3.2rem);
+  line-height: 0.95;
+}
+
+.hero-layout,
+.journey-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-layout {
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  align-items: start;
+  margin-top: 0.9rem;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-self: start;
+}
+
+.hero-text-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-width: 42rem;
+  padding: 1rem 1.05rem;
+  border: 3px solid #111111;
+  background: rgba(247, 243, 232, 0.9);
+  box-shadow: 4px 4px 0 #111111;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.portrait-frame {
+  padding: 0.3rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 4px 4px 0 #111111;
+  margin-left: auto;
+  max-width: 20rem;
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 3px solid #111111;
+  background: #ebe7db;
+}
+
+.hero-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   width: 100%;
 }
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  padding: 0.7rem 0.8rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 3px 3px 0 #111111;
+}
+
+.metric-card-accent {
+  background: #ffd84d;
+}
+
+.metric-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.metric-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.journey-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel {
+  padding: 0.9rem;
+}
+
+.panel-green {
+  background: linear-gradient(180deg, #53d9a7 0%, #f7f3e8 100%);
+}
+
+.panel-blue {
+  background: linear-gradient(180deg, #2f6bff 0%, #f7f3e8 100%);
+}
+
+.panel-head {
+  margin-bottom: 1rem;
+}
+
+.panel-icon {
+  width: fit-content;
+  padding: 0.35rem 0.6rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 4px 4px 0 #111111;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.timeline-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .timeline-card {
-  display: flex;
-  align-items: center;
-  background: transparent;
-  border: 1px solid #bfdbfe; /* Tailwind's blue-200 */
-  border-radius: 0.3rem;
-  padding: 1rem 1.25rem;
-  box-shadow: none;
-  transition: box-shadow 0.2s;
-}
-.timeline-card:hover {
-  box-shadow: none;
-}
-.timeline-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.5rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-  background: #bfdbfe;
-  color: #232336;
-  box-shadow: 0 0 0 2px #bfdbfe;
-}
-.timeline-card-content {
-  flex: 1;
+  padding: 0.85rem 0.9rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 4px 4px 0 #111111;
 }
 
-.timeline-container-compact {
-  position: relative;
-  max-width: 700px;
+.timeline-card-soft {
+  background: #fffdf5;
+}
+
+.timeline-period,
+.timeline-institution,
+.timeline-description,
+.skill-card p {
   margin: 0;
-  padding-left: 60px; 
 }
 
-.timeline-container-compact::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: #4a5568;
+.timeline-period {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  padding: 0.2rem 0.45rem;
+  background: #ffd84d;
+  border: 2px solid #111111;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
-.timeline-item-compact {
-  position: relative;
-  margin-bottom: 20px;
+.timeline-institution,
+.timeline-description {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.timeline-icon-compact {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #2d3748;
-  border: 2px solid #4a5568;
+.timeline-description {
+  font-weight: 500;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0.9rem 0 1rem;
+}
+
+.tab-button {
+  padding: 0.7rem 0.95rem;
+  border: 3px solid #111111;
+  background: #ffd84d;
+  box-shadow: 4px 4px 0 #111111;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.tab-button-alt {
+  background: #ff5c4d;
+}
+
+.tab-button.active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #111111;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.skill-card {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  color: #cbd5e0;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 4px 4px 0 #111111;
 }
 
-.timeline-content-compact {
-  padding: 15px 20px;
-  background-color: transparent;
-  border-radius: 8px;
-  border: 1px solid #4a5568;
-  margin-left: 60px;
-  transition: background-color 0.3s ease;
+.skill-card-alt {
+  background: #fff4d1;
 }
 
-.timeline-content-compact:hover {
-  background-color: rgba(59, 130, 246, 0.1);
+.skill-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border: 3px solid #111111;
+  background: #111111;
 }
 
-.note-box-blue {
-  background-color: rgba(0, 102, 204, 0.1); /* transparent blue background */
-  border-left: 6px solid #0066cc;
-  padding: 1rem 1.5rem;
-  color: white;
-  font-family: Arial, sans-serif;
-  border-radius: 4px;
+.skill-icon-wrap-alt {
+  background: #111111;
 }
 
-.note-box-green {
-  background-color: rgba(0, 204, 102, 0.1); /* transparent green background */
-  border-left: 6px solid #00cc66;
-  padding: 1rem 1.5rem;
-  color: white;
-  font-family: Arial, sans-serif;
-  border-radius: 4px;
+.skill-icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
+.skill-card h3 {
+  font-size: 1rem;
+}
+
+.skill-card p {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.animate-in {
+  animation: riseIn 0.55s ease-out forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.delay-2 {
+  animation-delay: 0.16s;
+}
+
+.is-hidden {
+  opacity: 0;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 769px) {
+  .hero-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "eyebrow portrait"
+      "title portrait"
+      "text metrics";
+  }
+
+  .hero-copy,
+  .hero-side {
+    display: contents;
+  }
+
+  .eyebrow {
+    grid-area: eyebrow;
+  }
+
+  .hero-title {
+    grid-area: title;
+  }
+
+  .hero-text-card {
+    grid-area: text;
+    max-width: none;
+  }
+
+  .portrait-frame {
+    grid-area: portrait;
+  }
+
+  .hero-metrics {
+    grid-area: metrics;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero-layout,
+  .journey-grid,
+  .skill-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
-  .timeline-container-compact {
-    padding-left: 40px;
+  .hero-layout,
+  .journey-grid,
+  .skill-grid {
+    grid-template-columns: 1fr;
   }
 
-  .timeline-icon-compact {
-    left: -15px;
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
+  .hero-copy,
+  .hero-side {
+    display: contents;
   }
 
-  .timeline-content-compact {
-    margin-left: 40px;
+  .eyebrow {
+    order: 1;
+  }
+
+  .hero-title {
+    order: 2;
+  }
+
+  .portrait-frame {
+    order: 3;
+  }
+
+  .hero-text-card {
+    order: 4;
+  }
+
+  .hero-metrics {
+    order: 5;
+  }
+
+  .hero-copy {
+    gap: 0.6rem;
+  }
+
+  .hero-card,
+  .skills-section {
+    padding: 0.85rem;
+  }
+
+  .hero-text-card {
+    padding: 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .portrait-frame {
+    max-width: 17rem;
+    margin-left: 0;
+  }
+
+  .portrait {
+    max-width: 100%;
+  }
+
+  .hero-metrics {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .metric-card {
+    flex: 1 1 10rem;
+  }
+
+  .journey-section,
+  .skills-section {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .hero-title {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: clamp(1.85rem, 11vw, 2.8rem);
+  }
+
+  .hero-metrics {
+    flex-direction: column;
+  }
+
+  .metric-card {
+    flex: 1 1 auto;
+  }
+
+  .panel {
+    padding: 0.8rem;
+  }
+
+  .skill-card {
+    padding: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 </style>

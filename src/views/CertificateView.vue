@@ -1,10 +1,146 @@
+<template>
+  <main class="certificate-page">
+    <section class="certificate-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
+      <div class="hero-copy">
+        <span class="eyebrow">Certificates</span>
+        <h1>Learning progress and achievements, presented as a compact gallery.</h1>
+        <p>
+          A tighter showcase of completed courses and training certificates, with direct access to
+          credentials or full previews where needed.
+        </p>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric-card">
+          <span class="metric-value">8</span>
+          <span class="metric-label">Certificates</span>
+        </div>
+        <div class="metric-card metric-card-accent">
+          <span class="metric-value">2</span>
+          <span class="metric-label">Preview only</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">Live</span>
+          <span class="metric-label">Credentials linked</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="certificate-grid-wrap" :class="showContent ? 'animate-in delay-1' : 'is-hidden'">
+      <div class="certificate-grid">
+        <article v-for="(cert, idx) in certificates" :key="cert.id" class="certificate-card" :style="{ animationDelay: `${idx * 0.08}s` }">
+          <div class="card-image">
+            <div v-if="cert.imageLoading" class="skeleton-overlay" aria-hidden="true"></div>
+            <img
+              :class="{ 'image-loaded': !cert.imageLoading }"
+              @load="cert.imageLoading = false"
+              @error="cert.imageLoading = false; cert.imageError = true"
+              :alt="cert.name"
+              decoding="async"
+              loading="lazy"
+              :src="`/img/certificates/${cert.imageUrl}.webp`"
+            >
+            <div v-if="cert.imageError" class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21,15 16,10 5,21"></polyline>
+              </svg>
+              <span>Certificate image unavailable</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-content">
+              <div class="card-head">
+                <h2 class="card-title" :title="cert.name">{{ cert.name }}</h2>
+                <div class="cert-meta">
+                  <span class="issuer">{{ cert.issuer }}</span>
+                  <span class="date">{{ cert.issueDate }}</span>
+                </div>
+              </div>
+
+              <p class="topics" :title="cert.topics">{{ cert.topics }}</p>
+            </div>
+
+            <button
+              v-if="needsPreviewModal(cert)"
+              type="button"
+              class="view-credential-btn"
+              :aria-label="`Preview ${cert.name} details`"
+              @click="openCertificatePreview(cert)"
+            >
+              <span>Preview</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zM8.75 8.5a1.25 1.25 0 112.5 0v1.25h.25a.75.75 0 010 1.5h-.25v.25a1.25 1.25 0 11-2.5 0v-.25H8.5a.75.75 0 010-1.5h.25V8.5z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a
+              v-else
+              :href="cert.credentialUrl"
+              target="_blank"
+              rel="noreferrer"
+              class="view-credential-btn"
+              :aria-label="`View ${cert.name} credential`"
+            >
+              <span>View Credential</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div
+      v-if="activePreview"
+      class="certificate-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="`${activePreview.name} preview`"
+      @click.self="closeCertificatePreview"
+    >
+      <div class="certificate-modal-card" :class="{ 'portrait-layout': previewImageIsPortrait }">
+        <button type="button" class="modal-close-btn" aria-label="Close certificate preview" @click="closeCertificatePreview">×</button>
+
+        <div class="modal-image-frame">
+          <div class="modal-image-wrap" ref="previewImageWrap" @scroll.passive="handleImageWrapScroll">
+            <img
+              :src="`/img/certificates/${activePreview.imageUrl}.webp`"
+              :alt="activePreview.name"
+              class="modal-image"
+              :class="{ 'portrait-preview': previewImageIsPortrait }"
+              @load="handlePreviewImageLoad"
+            >
+          </div>
+          <div v-if="showScrollGuide" class="scroll-guide" aria-hidden="true">
+            <span>Scroll to view full certificate</span>
+            <span class="scroll-guide-arrow">↓</span>
+          </div>
+        </div>
+
+        <div class="modal-content">
+          <h3 class="modal-title">{{ activePreview.name }}</h3>
+          <p class="modal-meta">
+            <strong>{{ activePreview.issuer }}</strong>
+            <span>{{ activePreview.issueDate }}</span>
+          </p>
+          <p class="modal-topics">{{ activePreview.topics }}</p>
+          <p class="modal-description">{{ activePreview.previewInfo }}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+
 <script>
 export default {
   props: {
     showContent: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -14,96 +150,96 @@ export default {
       showScrollGuide: false,
       certificates: [
         {
-            id: 1,
-            name: 'Belajar Dasar Pemrograman Web',
-            issuer: 'Dicoding',
-            issueDate: 'November 2025',
-            imageUrl: 'sertifikat_course_1',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.dicoding.com/certificates/1OP842VJ1ZQK',
-            topics: 'React, Front-End Web'
+          id: 1,
+          name: 'Belajar Dasar Pemrograman Web',
+          issuer: 'Dicoding',
+          issueDate: 'November 2025',
+          imageUrl: 'sertifikat_course_1',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.dicoding.com/certificates/1OP842VJ1ZQK',
+          topics: 'React, Front-End Web',
         },
         {
-            id: 2,
-            name: 'Belajar Dasar Pemrograman JavaScript',
-            issuer: 'Dicoding',
-            issueDate: 'November 2025',
-            imageUrl: 'sertifikat_course_2',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.dicoding.com/certificates/07Z64DLN2PQR',
-            topics: 'Google Cloud, React, Front-End Web, Back-End'
+          id: 2,
+          name: 'Belajar Dasar Pemrograman JavaScript',
+          issuer: 'Dicoding',
+          issueDate: 'November 2025',
+          imageUrl: 'sertifikat_course_2',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.dicoding.com/certificates/07Z64DLN2PQR',
+          topics: 'Google Cloud, React, Front-End Web, Back-End',
         },
         {
-            id: 3,
-            name: 'Belajar Membuat Front-End Web untuk Pemula',
-            issuer: 'Dicoding',
-            issueDate: 'November 2025',
-            imageUrl: 'sertifikat_course_3',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.dicoding.com/certificates/2VX34E134ZYQ',
-            topics: 'React, Front-End Web'
+          id: 3,
+          name: 'Belajar Membuat Front-End Web untuk Pemula',
+          issuer: 'Dicoding',
+          issueDate: 'November 2025',
+          imageUrl: 'sertifikat_course_3',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.dicoding.com/certificates/2VX34E134ZYQ',
+          topics: 'React, Front-End Web',
         },
         {
-            id: 4,
-            name: 'Belajar Dasar AI',
-            issuer: 'Dicoding',
-            issueDate: 'November 2025',
-            imageUrl: 'sertifikat_course_4',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.dicoding.com/certificates/4EXG7240GPRL',
-            topics: 'Artificial Intelligence, Machine Learning'
+          id: 4,
+          name: 'Belajar Dasar AI',
+          issuer: 'Dicoding',
+          issueDate: 'November 2025',
+          imageUrl: 'sertifikat_course_4',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.dicoding.com/certificates/4EXG7240GPRL',
+          topics: 'Artificial Intelligence, Machine Learning',
         },
         {
-            id: 5,
-            name: 'Problem Solving (Basic)',
-            issuer: 'HackerRank',
-            issueDate: 'July 2025',
-            imageUrl: 'sertifikat_hackerrank_1',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.hackerrank.com/certificates/34f5b92b171d',
-            topics: 'Data Structures, Algorithms'
+          id: 5,
+          name: 'Problem Solving (Basic)',
+          issuer: 'HackerRank',
+          issueDate: 'July 2025',
+          imageUrl: 'sertifikat_hackerrank_1',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.hackerrank.com/certificates/34f5b92b171d',
+          topics: 'Data Structures, Algorithms',
         },
         {
-            id: 6,
-            name: 'Fundamental Front-End Web Development',
-            issuer: 'Dicoding',
-            issueDate: 'February 2025',
-            imageUrl: 'sertifikat_course_5',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: 'https://www.dicoding.com/certificates/0LZ0RGW63P65',
-            topics: 'API, Webpack, Front-End Web'
+          id: 6,
+          name: 'Fundamental Front-End Web Development',
+          issuer: 'Dicoding',
+          issueDate: 'February 2025',
+          imageUrl: 'sertifikat_course_5',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: 'https://www.dicoding.com/certificates/0LZ0RGW63P65',
+          topics: 'API, Webpack, Front-End Web',
         },
         {
-            id: 7,
-            name: 'Intermediate Front-End Development',
-            issuer: 'Dicoding',
-            issueDate: 'March 2025',
-            imageUrl: 'sertifikat_kelulusan',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: '',
-            topics: 'Intermediate, Front-End',
-            previewInfo: 'Certificate of completion for the Intermediate Front-End Development learning path.'
+          id: 7,
+          name: 'Intermediate Front-End Development',
+          issuer: 'Dicoding',
+          issueDate: 'March 2025',
+          imageUrl: 'sertifikat_kelulusan',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: '',
+          topics: 'Intermediate, Front-End',
+          previewInfo: 'Certificate of completion for the Intermediate Front-End Development learning path.',
         },
         {
-            id: 8,
-            name: 'Certificate of Training',
-            issuer: 'Gunadarma University',
-            issueDate: 'June 2025',
-            imageUrl: 'sertifikat_pelatihan_1',
-            imageLoading: true,
-            imageError: false,
-            credentialUrl: '',
-            topics: 'JavaScript Programming Languages Fundamental',
-            previewInfo: 'Training certification ID 825739 for JavaScript Programming Languages Fundamental.'
-        }
-      ]
+          id: 8,
+          name: 'Certificate of Training',
+          issuer: 'Gunadarma University',
+          issueDate: 'June 2025',
+          imageUrl: 'sertifikat_pelatihan_1',
+          imageLoading: true,
+          imageError: false,
+          credentialUrl: '',
+          topics: 'JavaScript Programming Languages Fundamental',
+          previewInfo: 'Training certification ID 825739 for JavaScript Programming Languages Fundamental.',
+        },
+      ],
     };
   },
   methods: {
@@ -148,858 +284,508 @@ export default {
       if (event.key === 'Escape' && this.activePreview) {
         this.closeCertificatePreview();
       }
-    }
+    },
   },
   mounted() {
     window.addEventListener('keydown', this.handleKeydown);
+    setTimeout(() => {
+      this.certificates.forEach((cert) => {
+        cert.imageLoading = true;
+      });
+    }, 0);
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.handleKeydown);
     document.body.style.overflow = '';
   },
-  // Using the same inline @load/@error approach as Projects so the skeleton
-  // shows until the <img> finishes, then we toggle visibility.
-}
+};
 </script>
 
-<template>
-  <div class="px-5 py-5 md:px-12 md:py-10 text-left mx-3">
-    <article data-page="certificates">
-      <header>
-        <div class="text-2xl font-bold text-white mb-10 fadein-bot title-section flex items-center justify-center flex-col">
-          <h4>My Certificates</h4>
-          <h4 class="text-base font-normal text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-blue-300">
-            Learning progress & achievements
-          </h4>
-        </div>
-      </header>
-      
-      <section class="certificates-container">
-        <div 
-          v-for="(cert, idx) in certificates" 
-          :key="cert.id" 
-          class="certificate-card fadein-smooth"
-          :style="{ animationDelay: (0.12 * idx) + 's' }"
-        >
-          <div class="card-image">
-            <div v-if="cert.imageLoading" class="skeleton-overlay"></div>
-            <img
-              :class="{ 'image-loaded': !cert.imageLoading }"
-              @load="cert.imageLoading = false"
-              @error="cert.imageLoading = false; cert.imageError = true"
-              :alt="cert.name"
-              decoding="async"
-              loading="lazy"
-              :src="'/img/certificates/' + cert.imageUrl + '.webp'"
-            >
-            <div v-if="cert.imageError" class="image-fallback">
-              <svg xmlns="http://www.w3.org/2000/svg" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21,15 16,10 5,21"></polyline>
-              </svg>
-              <span>Certificate Image</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-content">
-              <h3 class="card-title" :title="cert.name">{{ cert.name }}</h3>
-              <div class="cert-meta">
-                <span class="issuer">{{ cert.issuer }}</span>
-                <span class="date">{{ cert.issueDate }}</span>
-              </div>
-              <div class="topics" :title="cert.topics">{{ cert.topics }}</div>
-            </div>
-            <button
-              v-if="needsPreviewModal(cert)"
-              type="button"
-              class="view-credential-btn"
-              :aria-label="`Preview ${cert.name} details`"
-              @click="openCertificatePreview(cert)"
-            >
-              <span>Preview Certificate</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zM8.75 8.5a1.25 1.25 0 112.5 0v1.25h.25a.75.75 0 010 1.5h-.25v.25a1.25 1.25 0 11-2.5 0v-.25H8.5a.75.75 0 010-1.5h.25V8.5z" clip-rule="evenodd" />
-              </svg>
-            </button>
-            <a
-              v-else
-              :href="cert.credentialUrl"
-              target="_blank"
-              rel="noreferrer"
-              class="view-credential-btn"
-              :aria-label="`View ${cert.name} credential`"
-            >
-              <span>View Credential</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <div
-        v-if="activePreview"
-        class="certificate-modal-overlay"
-        role="dialog"
-        aria-modal="true"
-        :aria-label="`${activePreview.name} preview`"
-        @click.self="closeCertificatePreview"
-      >
-        <div class="certificate-modal-card" :class="{ 'portrait-layout': previewImageIsPortrait }">
-          <button
-            type="button"
-            class="modal-close-btn"
-            aria-label="Close certificate preview"
-            @click="closeCertificatePreview"
-          >
-            ×
-          </button>
-
-          <div class="modal-image-frame">
-            <div class="modal-image-wrap" ref="previewImageWrap" @scroll.passive="handleImageWrapScroll">
-              <img
-                :src="'/img/certificates/' + activePreview.imageUrl + '.webp'"
-                :alt="activePreview.name"
-                class="modal-image"
-                :class="{ 'portrait-preview': previewImageIsPortrait }"
-                @load="handlePreviewImageLoad"
-              >
-            </div>
-            <div v-if="showScrollGuide" class="scroll-guide" aria-hidden="true">
-              <span>Scroll to view full certificate</span>
-              <span class="scroll-guide-arrow">↓</span>
-            </div>
-          </div>
-
-          <div class="modal-content">
-            <h3 class="modal-title">{{ activePreview.name }}</h3>
-            <p class="modal-meta">
-              <strong>{{ activePreview.issuer }}</strong>
-              <span>{{ activePreview.issueDate }}</span>
-            </p>
-            <p class="modal-topics">{{ activePreview.topics }}</p>
-            <p class="modal-description">{{ activePreview.previewInfo }}</p>
-          </div>
-        </div>
-      </div>
-    </article>
-  </div>
-</template>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-* {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+<style scoped>
+.certificate-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.certificates-container {
+.certificate-hero,
+.certificate-grid-wrap {
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 8px 8px 0 #111111;
+}
+
+.certificate-hero {
   display: grid;
-  max-width: 1200px;
-  margin-inline: auto;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-  padding-bottom: 32px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ffd84d 0%, #f7f3e8 45%, #53d9a7 100%);
+}
+
+.hero-copy,
+.hero-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.96;
+  font-weight: 900;
+}
+
+.hero-copy p {
+  max-width: 42rem;
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 4px 4px 0 #111111;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero-metrics {
+  justify-content: flex-end;
+}
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 4px 4px 0 #111111;
+}
+
+.metric-card-accent {
+  background: #ffd84d;
+}
+
+.metric-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.metric-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.certificate-grid-wrap {
+  padding: 1rem;
+}
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
 }
 
 .certificate-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 380px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  will-change: transform;
-  /* Improve rendering performance */
-  contain: layout style paint;
-  content-visibility: auto;
-}
-
-/* Only apply expensive effects on desktop */
-@media (min-width: 769px) {
-  .certificate-card {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-  
-  .certificate-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.1) 0%, 
-      rgba(255, 255, 255, 0.05) 50%, 
-      rgba(255, 255, 255, 0.02) 100%);
-    border-radius: 16px;
-    pointer-events: none;
-  }
-  
-  .certificate-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(96, 165, 250, 0.3);
-    box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(96, 165, 250, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: rgba(96, 165, 250, 0.08);
-  }
-}
-
-/* Focus states for accessibility */
-.certificate-card:focus-within {
-  outline: 2px solid rgba(96, 165, 250, 0.5);
-  outline-offset: 2px;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 5px 5px 0 #111111;
+  overflow: hidden;
 }
 
 .card-image {
-  width: 100%;
-  height: 160px;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   position: relative;
-  flex-shrink: 0;
+  aspect-ratio: 16 / 9;
+  background: #ebe7db;
+  border-bottom: 3px solid #111111;
+  overflow: hidden;
 }
 
-.skeleton-overlay {
+.card-image img,
+.skeleton-overlay,
+.image-fallback {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: #374151;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  z-index: 1;
-  border-radius: 12px;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
 }
 
 .card-image img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.95) contrast(1.05);
-  padding: 8px;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 220ms ease;
 }
 
 .card-image img.image-loaded {
   opacity: 1;
 }
 
-/* Only apply expensive image effects on desktop */
-@media (min-width: 769px) {
-  .card-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, 
-      transparent 0%, 
-      rgba(255, 255, 255, 0.1) 50%, 
-      transparent 100%);
-  }
-  
-  .card-image img {
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-  
-  .certificate-card:hover .card-image img {
-    transform: scale(1.1);
-    filter: brightness(1) contrast(1.2);
-  }
+.skeleton-overlay {
+  background: linear-gradient(110deg, rgba(17, 17, 17, 0.08) 8%, rgba(17, 17, 17, 0.16) 18%, rgba(17, 17, 17, 0.08) 33%), #ebe7db;
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
 }
 
-/* Image fallback styling */
 .image-fallback {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.6);
+  gap: 0.5rem;
+  background: rgba(17, 17, 17, 0.08);
+  color: #111111;
   font-size: 0.8rem;
-  gap: 8px;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 2;
+  font-weight: 700;
 }
 
 .fallback-icon {
-  width: 32px;
-  height: 32px;
-  stroke: rgba(255, 255, 255, 0.4);
+  width: 30px;
+  height: 30px;
+  stroke: #111111;
 }
 
 .card-body {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 20px 20px;
-  position: relative;
-  z-index: 2;
-  min-height: 0;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  flex: 1;
 }
 
 .card-content {
-  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-height: 0;
-  overflow: hidden;
+  gap: 0.65rem;
 }
 
 .card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1.3;
   margin: 0;
-  display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-height: 2.6em; /* 2 lines */
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.06rem;
+  font-weight: 900;
+  line-height: 1.2;
 }
 
 .cert-meta {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  flex-wrap: wrap;
+  gap: 0.45rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .issuer {
-  font-weight: 500;
-  color: rgba(96, 165, 250, 0.8);
+  color: #2f6bff;
 }
 
 .date::before {
   content: '•';
-  margin-right: 8px;
-  color: rgba(255, 255, 255, 0.3);
+  margin-right: 0.5rem;
 }
 
 .topics {
-  font-size: 0.85rem;
-  color: rgba(125, 211, 252, 0.9);
-  font-weight: 500;
-  display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
-  flex: 1;
-  max-height: 2.6em; /* 2 lines */
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 3px solid #111111;
+  background: #ffd84d;
+  box-shadow: 4px 4px 0 #111111;
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .view-credential-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: rgba(96, 165, 250, 0.9);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 12px 16px;
-  text-decoration: none;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-  margin-top: 16px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 4px 4px 0 #111111;
+  color: #111111;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.view-credential-btn .icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .certificate-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 6, 23, 0.8);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index: 70;
+  z-index: 120;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 1rem;
+  background: rgba(17, 17, 17, 0.55);
 }
 
 .certificate-modal-card {
   position: relative;
-  width: min(760px, 100%);
-  max-height: calc(100vh - 32px);
-  overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.9fr);
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.92));
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+  gap: 1rem;
+  width: min(100%, 70rem);
+  max-height: 90vh;
+  padding: 1rem;
+  border: 4px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 10px 10px 0 #111111;
+  overflow: hidden;
 }
 
 .certificate-modal-card.portrait-layout {
-  grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.9fr);
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.65fr);
 }
 
 .modal-close-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
-  border-radius: 9999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  color: rgba(226, 232, 240, 0.95);
-  background: rgba(15, 23, 42, 0.85);
-  font-size: 1.4rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 4px 4px 0 #111111;
+  font-size: 1.5rem;
+  font-weight: 900;
   line-height: 1;
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.35);
-}
-
-.modal-image-wrap {
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  position: relative;
 }
 
 .modal-image-frame {
   position: relative;
   min-height: 0;
-  z-index: 1;
+}
+
+.modal-image-wrap {
+  max-height: calc(90vh - 2rem);
+  overflow: auto;
+  border: 3px solid #111111;
+  background: #ebe7db;
 }
 
 .modal-image {
-  width: 100%;
-  max-height: calc(100vh - 92px);
-  object-fit: contain;
-  border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.modal-image.portrait-preview {
-  width: 100%;
-  max-width: 100%;
-  max-height: none;
-  margin-inline: auto;
   display: block;
+  width: 100%;
+  height: auto;
 }
 
-.certificate-modal-card.portrait-layout .modal-image-wrap {
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  align-items: flex-start;
-}
-
-.scroll-guide {
-  position: absolute;
-  left: 50%;
-  bottom: 10px;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
-  color: rgba(226, 232, 240, 0.95);
-  background: rgba(15, 23, 42, 0.86);
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  border-radius: 999px;
-  padding: 6px 10px;
-  pointer-events: none;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
-  z-index: 3;
-  white-space: nowrap;
-}
-
-.scroll-guide-arrow {
-  display: inline-block;
-  animation: scrollHintBob 1.1s ease-in-out infinite;
-}
-
-@keyframes scrollHintBob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(2px);
-  }
+.portrait-preview {
+  width: 100%;
 }
 
 .modal-content {
-  padding: 20px 18px 18px 6px;
-  color: rgba(248, 250, 252, 0.95);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 0;
+  gap: 0.75rem;
+  padding-right: 2.5rem;
 }
 
 .modal-title {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.modal-meta,
+.modal-topics,
+.modal-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .modal-meta {
-  margin: 8px 0 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  color: rgba(186, 230, 253, 0.95);
-  font-size: 0.84rem;
+  gap: 0.5rem 0.75rem;
 }
 
 .modal-topics {
-  margin: 8px 0 0;
-  color: rgba(147, 197, 253, 1);
-  font-size: 0.84rem;
-  line-height: 1.4;
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.45rem 0.65rem;
+  border: 3px solid #111111;
+  background: #ffd84d;
+  box-shadow: 4px 4px 0 #111111;
+  font-weight: 800;
 }
 
 .modal-description {
-  margin: 10px 0 0;
-  color: rgba(226, 232, 240, 0.9);
-  font-size: 0.86rem;
-  line-height: 1.45;
+  max-width: 32rem;
 }
 
-/* Only apply expensive button effects on desktop */
-@media (min-width: 769px) {
-  .view-credential-btn {
-    backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-  
-  .view-credential-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-  }
-
-  .view-credential-btn:hover::before {
-    left: 100%;
-  }
-
-  .view-credential-btn:hover,
-  .view-credential-btn:focus {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
-  }
-  
-  .view-credential-btn .icon {
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-
-  .view-credential-btn:hover .icon,
-  .view-credential-btn:focus .icon {
-    transform: translateX(2px);
-  }
+.scroll-guide {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border: 3px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 4px 4px 0 #111111;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
-.view-credential-btn:hover,
-.view-credential-btn:focus {
-  background: rgba(96, 165, 250, 0.15);
-  border-color: rgba(96, 165, 250, 0.3);
-  color: rgba(147, 197, 253, 1);
-  outline: none;
+.scroll-guide-arrow {
+  font-size: 1rem;
 }
 
-.view-credential-btn .icon {
-  width: 16px;
-  height: 16px;
+.animate-in {
+  animation: riseIn 0.55s ease-out forwards;
 }
 
-/* Staggered smooth fade-in animation */
-@keyframes fadeinSmooth {
-  0% {
+.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.is-hidden {
+  opacity: 0;
+}
+
+@keyframes riseIn {
+  from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(18px);
   }
-  100% {
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.fadein-smooth {
-  opacity: 0;
-  animation: fadeinSmooth 0.5s ease-out forwards;
-}
-
-/* Reduce animation complexity on mobile */
-@media (max-width: 768px) {
-  @keyframes fadeinSmooth {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
   }
-  
-  .fadein-smooth {
-    animation-duration: 0.3s;
+
+  100% {
+    background-position: -100% 0;
   }
 }
 
-/* Respect user's motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .certificate-card,
-  .card-image img,
-  .view-credential-btn,
-  .view-credential-btn .icon,
-  .view-credential-btn::before {
-    transition: none;
-    animation: none;
-  }
-  
-  /* Ensure elements are visible even without animations */
-  .fadein-smooth {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  
-  .certificate-card:hover {
-    transform: none;
-  }
-  
-  .certificate-card:hover .card-image img {
-    transform: none;
-  }
-  
-  .view-credential-btn:hover,
-  .view-credential-btn:focus {
-    transform: none;
-  }
-  
-  .view-credential-btn:hover .icon,
-  .view-credential-btn:focus .icon {
-    transform: none;
-  }
-  
-  .view-credential-btn::before {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .certificates-container {
+@media (max-width: 980px) {
+  .certificate-hero,
+  .certificate-grid,
+  .certificate-modal-card {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 0 8px;
-  }
-  
-  .certificate-card {
-    height: 340px;
-    /* Remove will-change on mobile to reduce memory usage */
-    will-change: auto;
-    /* Disable hover effects on touch devices */
-    transform: none !important;
-  }
-  
-  .card-image {
-    height: 140px;
-  }
-  
-  /* Reduce animation delay on mobile for faster rendering */
-  .fadein-smooth {
-    animation-delay: 0s !important;
-  }
-  
-  .card-body {
-    padding: 14px 16px;
-  }
-  
-  .card-title {
-    font-size: 0.9rem;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-  }
-  
-  .cert-meta {
-    font-size: 0.7rem;
-  }
-  
-  .topics {
-    font-size: 0.7rem;
-  }
-  
-  .view-credential-btn {
-    font-size: 0.75rem;
-    padding: 10px 12px;
-  }
-  
-  .view-credential-btn .icon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .certificate-modal-overlay {
-    padding: 12px;
   }
 
   .certificate-modal-card {
-    grid-template-columns: 1fr;
-    max-height: calc(100vh - 24px);
-  }
-
-  .certificate-modal-card.portrait-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-close-btn {
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    font-size: 1.15rem;
-  }
-
-  .modal-image-wrap {
-    padding: 12px 12px 6px;
-  }
-
-  .modal-image {
-    max-height: 40vh;
-  }
-
-  .modal-image.portrait-preview {
-    max-height: none;
-  }
-
-  .modal-content {
-    padding: 8px 12px 14px;
-  }
-
-  .certificate-modal-card.portrait-layout .modal-image-wrap {
-    max-height: 42vh;
-    min-height: 0;
-    padding: 40px 10px 8px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    align-items: flex-start;
-  }
-
-  .certificate-modal-card.portrait-layout .modal-content {
-    padding: 8px 12px 14px;
-  }
-
-  .scroll-guide {
-    bottom: 8px;
-    font-size: 0.68rem;
-    padding: 5px 9px;
+    max-height: 92vh;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .certificate-card {
-    height: auto;
-    min-height: 240px;
-  }
-  
-  .card-image {
-    height: 100px;
-  }
-  
-  .card-body {
-    padding: 12px 16px 16px;
-  }
-
+@media (max-width: 640px) {
+  .certificate-hero,
+  .certificate-grid-wrap,
   .certificate-modal-overlay {
-    padding: 8px;
+    padding: 0.85rem;
   }
 
-  .certificate-modal-card {
-    max-height: calc(100vh - 16px);
+  .certificate-hero {
+    gap: 0.85rem;
   }
 
-  .modal-image-wrap {
-    padding: 10px 10px 6px;
-  }
-
-  .modal-image {
-    max-height: 34vh;
-  }
-
-  .modal-image.portrait-preview {
-    max-height: none;
+  .hero-copy h1 {
     max-width: 100%;
+    font-size: clamp(1.85rem, 11vw, 2.8rem);
   }
 
-  .modal-content {
-    padding: 6px 10px 12px;
+  .hero-copy p {
+    font-size: 0.93rem;
+  }
+
+  .hero-metrics {
+    gap: 0.5rem;
+  }
+
+  .metric-card {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .certificate-card,
+  .certificate-hero,
+  .certificate-grid-wrap {
+    box-shadow: 6px 6px 0 #111111;
+  }
+
+  .certificate-grid {
+    gap: 0.7rem;
+  }
+
+  .card-body,
+  .certificate-modal-card {
+    padding: 0.85rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .topics,
+  .view-credential-btn {
+    font-size: 0.72rem;
+  }
+
+  .certificate-modal-card {
+    gap: 0.85rem;
   }
 
   .modal-title {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
   }
 
-  .certificate-modal-card.portrait-layout .modal-image-wrap {
-    max-height: 40vh;
-    padding: 34px 8px 6px;
+  .modal-content {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .skeleton-overlay,
+  .image-loaded {
+    animation: none;
   }
 
-  .certificate-modal-card.portrait-layout .modal-content {
-    padding: 6px 10px 12px;
-  }
-
-  .scroll-guide {
-    bottom: 6px;
-    font-size: 0.64rem;
-    padding: 4px 8px;
+  .certificate-modal-card,
+  .card-image img {
+    transition: none;
   }
 }
 </style>

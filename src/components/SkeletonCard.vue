@@ -1,24 +1,19 @@
 <template>
-  <div class="item-card flex flex-col items-center gap-2 rounded bg-[#1e1e1f] border border-[#383838] rounded-xl text-blue-50 md:gap-3 px-5 py-5 lg:px-5 h-full">
-    <!-- Skeleton Image -->
-    <div class="w-full aspect-video bg-gray-700 rounded-xl animate-pulse"></div>
-    <!-- Skeleton Title -->
-    <div class="w-full flex flex-col gap-2 items-center text-sm md:text-base lg:text-lg flex-grow">
-      <div class="w-3/4 h-6 bg-gray-700 rounded animate-pulse"></div>
-      <!-- Skeleton Description -->
-      <div class="w-full flex flex-col gap-2">
-        <div class="w-full h-3 bg-gray-700 rounded animate-pulse"></div>
-        <div class="w-4/5 h-3 bg-gray-700 rounded animate-pulse"></div>
-        <div class="w-5/6 h-3 bg-gray-700 rounded animate-pulse"></div>
+  <div class="skeleton-card">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-body">
+      <div class="skeleton-line title"></div>
+      <div class="skeleton-copy">
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line medium"></div>
       </div>
-      <!-- Skeleton Tech Stack -->
-      <div class="w-full mt-auto pt-4">
-        <div class="w-2/5 h-4 bg-gray-700 rounded animate-pulse"></div>
-      </div>
-      <!-- Skeleton Links -->
-      <div class="w-full flex justify-end gap-2 mt-2">
-        <div class="w-5 h-5 bg-gray-700 rounded animate-pulse"></div>
-        <div class="w-5 h-5 bg-gray-700 rounded animate-pulse"></div>
+      <div class="skeleton-footer">
+        <div class="skeleton-pill"></div>
+        <div class="skeleton-icons">
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,5 +26,102 @@ export default {
 </script>
 
 <style scoped>
-/* Inherit styles from parent component if needed */
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  box-shadow: 6px 6px 0 #111111;
+}
+
+.skeleton-image,
+.skeleton-line,
+.skeleton-pill,
+.skeleton-icons div {
+  position: relative;
+  overflow: hidden;
+  background: rgba(17, 17, 17, 0.12);
+}
+
+.skeleton-image {
+  aspect-ratio: 16 / 9;
+  border: 3px solid #111111;
+}
+
+.skeleton-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 1rem;
+  border: 3px solid #111111;
+}
+
+.skeleton-line.title {
+  height: 1.4rem;
+  width: 72%;
+}
+
+.skeleton-line.short {
+  width: 86%;
+}
+
+.skeleton-line.medium {
+  width: 90%;
+}
+
+.skeleton-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.skeleton-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 0.75rem;
+}
+
+.skeleton-pill {
+  width: 40%;
+  height: 1.1rem;
+  border: 3px solid #111111;
+}
+
+.skeleton-icons {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.skeleton-icons div {
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 3px solid #111111;
+}
+
+.skeleton-image::after,
+.skeleton-line::after,
+.skeleton-pill::after,
+.skeleton-icons div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
 </style>

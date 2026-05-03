@@ -75,19 +75,27 @@
   
   <style scoped>
   .typewriter .wrap {
-    border-right: 0.08em solid #fff;
-    animation: blink-caret 1s ease-in-out infinite;
+    display: inline-block;
+    border-bottom: 0.18em solid #111111;
+    padding-bottom: 0.1em;
+    animation: blink-caret 0.9s steps(1) infinite;
   }
   
   @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #fff }
+    from,
+    to {
+      border-bottom-color: transparent;
+    }
+
+    50% {
+      border-bottom-color: #111111;
+    }
   }
   
   @media (prefers-reduced-motion: reduce) {
     .typewriter .wrap {
       animation: none;
-      border-right: none;
+      border-bottom: none;
     }
   }
   </style>

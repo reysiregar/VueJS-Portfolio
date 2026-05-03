@@ -42,45 +42,37 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
+  gap: 0.6rem;
+  padding: 0.9rem 1.2rem;
   margin: 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #add8e6;
-  background-color: transparent;
-  border: 1px solid #add8e6;
-  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #111111;
+  background-color: #ff5c4d;
+  border: 3px solid #111111;
+  border-radius: 0;
   text-decoration: none;
-  transition: all 0.3s ease;
+  box-shadow: 5px 5px 0 #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: transform 160ms ease, box-shadow 160ms ease;
   position: relative;
   overflow: hidden;
 }
 
 .resume-button:hover {
-  background-color: rgba(173, 216, 230, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 
-    0 0 10px rgba(173, 216, 230, 0.3),
-    0 0 20px rgba(173, 216, 230, 0.2),
-    0 0 30px rgba(173, 216, 230, 0.1);
-  text-shadow: 0 0 8px rgba(173, 216, 230, 0.5);
-  border-color: rgba(173, 216, 230, 0.8);
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #111111;
 }
 
 .resume-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(173, 216, 230, 0.4);
+  box-shadow: 0 0 0 4px #111111, 7px 7px 0 #111111;
 }
 
 .resume-button .icon {
-  margin-right: 0.5rem;
   width: 1rem;
   height: 1rem;
-  transition: filter 0.3s ease;
-}
-
-.resume-button:hover .icon {
-  filter: drop-shadow(0 0 6px rgba(173, 216, 230, 0.6));
 }
 
 @media (min-width: 768px) {

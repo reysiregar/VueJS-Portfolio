@@ -10,7 +10,30 @@ module.exports = {
     }),
     extend: {
       colors: {
-        'yellow-crayola': 'hsl(45, 100%, 72%)'
+        'yellow-crayola': 'hsl(45, 100%, 72%)',
+        paper: '#f7f3e8',
+        ink: '#111111',
+        'slate-paper': '#ebe7db',
+        punch: '#ff5c4d',
+        electric: '#2f6bff',
+        citrus: '#ffd84d',
+        mint: '#53d9a7',
+      },
+      boxShadow: {
+        brut: '6px 6px 0 #111111',
+        'brut-lg': '10px 10px 0 #111111',
+        'brut-inset': 'inset 4px 4px 0 #111111',
+      },
+      borderWidth: {
+        3: '3px',
+      },
+      borderRadius: {
+        xl: '1rem',
+        '2xl': '1.25rem',
+      },
+      fontFamily: {
+        display: ['"Space Grotesk"', 'sans-serif'],
+        body: ['"Poppins"', 'sans-serif'],
       }
     },
     animation: {

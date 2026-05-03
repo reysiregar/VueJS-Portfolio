@@ -1,37 +1,39 @@
 <template>
-  <main class="mt-6 md:mt-1 flex flex-col-reverse gap-8 items-center md:flex-row md:gap-16 md:justify-center min-h-[65vh] md:min-h-[80vh]">
-    <section class="space-y-2 text-center md:text-left px-10" itemscope itemtype="https://schema.org/Person">
-      <p :class="['text-blue-200 md:text-base lg:text-lg', showContent ? 'animate-fade-up' : 'opacity-0']">Hello World, I'm</p>
-      <h1 :class="['text-4xl font-bold md:text-5xl lg:text-6xl text-white', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Siregar</h1>
-      <div class="py-2">
+  <main class="home-grid" itemscope itemtype="https://schema.org/Person">
+    <section class="home-copy" itemscope itemtype="https://schema.org/Person">
+      <p :class="['eyebrow', showContent ? 'animate-fade-up' : 'opacity-0']">Welcome to my portfolio</p>
+      <h1 :class="['hero-title', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Siregar</h1>
+      <div class="py-1">
         <TypeWriter 
           :phrases="roles"
           :period="2000"
-          :class="['text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-blue-500 md:text-2xl lg:text-3xl', showContent ? 'animate-fade-up' : 'opacity-0']"
+          :class="['hero-role', showContent ? 'animate-fade-up' : 'opacity-0']"
         />
         <meta itemprop="jobTitle" content="Front-End Web Developer">
       </div>
-      <p :class="['text-white pr-4 md:text-base lg:text-lg', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="description">
-        Welcome to My portfolio website. 
+      <p :class="['hero-description', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="description">
+        A passionate website developer crafting clean, modern web experiences. I love building interfaces that are both beautiful and functional.
         <span class="wave" role="img" aria-label="Waving hand emoji">👋🏼</span>
       </p>
-      <br>
-      <ResumeButton 
-        :resume-path="resumePath"
-        :class="showContent ? 'animate-fade-bot' : 'opacity-0'"
-      />
+      <div class="hero-actions" :class="showContent ? 'animate-fade-bot' : 'opacity-0'">
+        <ResumeButton :resume-path="resumePath" />
+        <a href="/portfolio" class="secondary-cta">See selected work</a>
+      </div>
     </section>
-    <div :class="['flex justify-center md:justify-start', showContent ? 'animate-fade-right' : 'opacity-0']">
-      <img 
-        alt="Reynaldi Wiratama Siregar - Front-End Web Developer from Bekasi, Indonesia" 
-        fetchpriority="high" 
-        width="300" 
-        height="300" 
-        decoding="async" 
-        class="w-9/12 md:w-[320px] lg:w-[350px] md:h-auto rounded-full profile-picture" 
-        src="/img/profile.jpg"
-        itemprop="image"
-      >
+    <div class="profile-shell" :class="showContent ? 'animate-fade-right' : 'opacity-0'">
+      <div class="profile-card">
+        <div class="profile-badge">Available for freelance / internships</div>
+        <img 
+          alt="Reynaldi Wiratama Siregar - Front-End Web Developer from Bekasi, Indonesia" 
+          fetchpriority="high" 
+          width="320" 
+          height="320" 
+          decoding="async" 
+          class="profile-picture" 
+          src="/img/profile.webp"
+          itemprop="image"
+        >
+      </div>
     </div>
   </main>
 </template>
@@ -68,27 +70,135 @@ export default defineComponent({
 </script>
 
 <style scoped>
-:root {
-  --animation-duration: 0.5s;
-  --animation-delay: 500ms;
-  --profile-shadow-color: rgba(173, 216, 230, 0.5);
-  --profile-glow-color: rgba(173, 216, 230, 0.8);
-}
-.profile-picture {
-  box-shadow: 
-    0 0 clamp(20px, 5vw, 40px) -5px var(--profile-shadow-color),
-    0 0 clamp(30px, 7vw, 60px) -10px rgba(173, 216, 230, 0.3),
-    0 0 clamp(40px, 9vw, 80px) -15px rgba(173, 216, 230, 0.2);
-  transition: all 0.3s ease;
+.home-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+  min-height: calc(100vh - 8rem);
 }
 
-.profile-picture:hover {
-  box-shadow: 
-    0 0 clamp(25px, 6vw, 50px) -5px var(--profile-glow-color),
-    0 0 clamp(40px, 8vw, 70px) -10px rgba(173, 216, 230, 0.4),
-    0 0 clamp(50px, 10vw, 90px) -15px rgba(173, 216, 230, 0.3),
-    0 0 clamp(60px, 12vw, 100px) -20px rgba(173, 216, 230, 0.2);
-  transform: scale(1.02);
+.home-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.eyebrow,
+.hero-role,
+.hero-description {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border: 3px solid #111111;
+  background: #53d9a7;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow: 5px 5px 0 #111111;
+}
+
+.hero-title {
+  max-width: 10ch;
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3.25rem, 8vw, 7rem);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+.hero-role {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  background: #ffd84d;
+  border: 3px solid #111111;
+  box-shadow: 5px 5px 0 #111111;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 900;
+}
+
+.hero-description {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.2rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  color: #111111;
+  box-shadow: 5px 5px 0 #111111;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.secondary-cta:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #111111;
+}
+
+.profile-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile-card {
+  position: relative;
+  padding: 0.5rem;
+  border: 4px solid #111111;
+  background: #ff5c4d;
+  box-shadow: 12px 12px 0 #111111;
+  width: 100%;
+}
+
+.profile-badge {
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  padding: 0.45rem 0.8rem;
+  border: 3px solid #111111;
+  background: #f7f3e8;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #111111;
+}
+
+.profile-picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 4px solid #111111;
+  box-shadow: 5px 5px 0 #111111;
+  background: #ebe7db;
 }
 
 .wave {
@@ -108,20 +218,20 @@ export default defineComponent({
 }
 
 .animate-fade-up {
-  animation: fadeUp var(--animation-duration) forwards;
-  animation-delay: var(--animation-delay);
+  animation: fadeUp 0.55s ease-out forwards;
+  animation-delay: 0.12s;
   opacity: 0;
 }
 
 .animate-fade-right {
-  animation: fadeRight var(--animation-duration) forwards;
-  animation-delay: var(--animation-delay);
+  animation: fadeRight 0.55s ease-out forwards;
+  animation-delay: 0.18s;
   opacity: 0;
 }
 
 .animate-fade-bot {
-  animation: fadeBot var(--animation-duration) forwards;
-  animation-delay: var(--animation-delay);
+  animation: fadeBot 0.55s ease-out forwards;
+  animation-delay: 0.24s;
   opacity: 0;
 }
 
@@ -165,6 +275,127 @@ export default defineComponent({
   .wave {
     animation: none;
     opacity: 1;
+  }
+}
+
+@media (min-width: 400px) {
+  .profile-card {
+    max-width: 26rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-grid {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    gap: 1rem;
+  }
+
+  .home-copy {
+    display: contents;
+  }
+
+  .eyebrow {
+    order: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-shell {
+    order: 1;
+    margin-inline: auto;
+  }
+
+  .hero-title {
+    order: 2;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .py-1 {
+    order: 3;
+    width: 100%;
+  }
+
+  .hero-description {
+    order: 4;
+    text-align: center;
+  }
+
+  .hero-actions {
+    order: 5;
+    justify-content: center;
+  }
+
+  .profile-card {
+    box-shadow: 8px 8px 0 #111111;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-grid {
+    gap: 0.9rem;
+    padding-top: 2.5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.7rem;
+    align-self: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 12vw, 3.2rem);
+    line-height: 0.96;
+    margin-top: 0.5rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .py-1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-description {
+    max-width: 100%;
+    font-size: 0.92rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .hero-actions {
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-actions > * {
+    flex: 1 1 100%;
+  }
+
+  .hero-role {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .profile-card {
+    padding: 0.5rem;
+    max-width: 17rem;
+    margin-inline: auto;
+  }
+
+  .profile-badge {
+    left: 0.15rem;
+    right: 0.15rem;
+    top: -0.9rem;
+    width: auto;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.64rem;
+    text-align: center;
+  }
+
+  .profile-picture {
+    width: 100%;
   }
 }
 </style>
