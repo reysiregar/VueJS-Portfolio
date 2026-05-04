@@ -569,6 +569,7 @@ export default {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
+  z-index: 3;
   width: 2.6rem;
   height: 2.6rem;
   border: 3px solid #111111;
@@ -709,6 +710,10 @@ export default {
   .certificate-modal-card {
     max-height: 92vh;
   }
+
+  .certificate-modal-card.portrait-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -765,6 +770,29 @@ export default {
 
   .certificate-modal-card {
     gap: 0.85rem;
+    max-height: calc(100dvh - 1.7rem);
+    overflow-y: auto;
+    padding-top: 4.25rem;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #111111;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-close-btn {
+    position: fixed;
+    top: max(0.85rem, env(safe-area-inset-top));
+    right: max(0.85rem, env(safe-area-inset-right));
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.65rem;
+  }
+
+  .modal-image-wrap {
+    max-height: min(58dvh, 30rem);
+  }
+
+  .certificate-modal-card.portrait-layout .modal-image-wrap {
+    max-height: min(62dvh, 32rem);
   }
 
   .modal-title {
