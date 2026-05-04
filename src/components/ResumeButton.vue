@@ -80,4 +80,22 @@ export default {
     margin: 0;
   }
 }
+
+@media (max-width: 640px) {
+  .resume-button {
+    box-sizing: border-box;
+    min-height: 3rem;
+    padding: 0.75rem 0.6rem;
+    font-size: clamp(0.64rem, 2.8vw, 0.72rem);
+    gap: 0.4rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .resume-button .icon {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+}
 </style>

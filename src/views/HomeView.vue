@@ -134,10 +134,26 @@ export default defineComponent({
 }
 
 .hero-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 38rem);
   gap: 0.9rem;
-  align-items: center;
+  align-items: stretch;
+}
+
+.hero-actions > * {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.hero-actions :deep(.resume-button),
+.secondary-cta {
+  height: 100%;
+  min-height: 3.5rem;
+  box-sizing: border-box;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .secondary-cta {
@@ -335,7 +351,7 @@ export default defineComponent({
 @media (max-width: 640px) {
   .home-grid {
     gap: 0.9rem;
-    padding-top: 2.5rem;
+    padding-top: 2rem;
   }
 
   .eyebrow {
@@ -366,11 +382,16 @@ export default defineComponent({
 
   .hero-actions {
     width: 100%;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-items: stretch;
   }
 
   .hero-actions > * {
-    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .hero-role {
@@ -379,9 +400,11 @@ export default defineComponent({
   }
 
   .profile-card {
-    padding: 0.5rem;
-    max-width: 17rem;
+    padding: 0.4rem;
+    border-width: 3px;
+    max-width: 14.5rem;
     margin-inline: auto;
+    box-shadow: 6px 6px 0 #111111;
   }
 
   .profile-badge {
@@ -390,12 +413,43 @@ export default defineComponent({
     top: -0.9rem;
     width: auto;
     padding: 0.35rem 0.55rem;
+    border-width: 3px;
     font-size: 0.64rem;
     text-align: center;
+    box-shadow: none;
   }
 
   .profile-picture {
     width: 100%;
+    border-width: 3px;
+    box-shadow: none;
+  }
+
+  .hero-actions :deep(.resume-button),
+  .secondary-cta {
+    height: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 0.6rem;
+    font-size: clamp(0.64rem, 2.8vw, 0.72rem);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    line-height: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-actions {
+    gap: 0.45rem;
+  }
+
+  .profile-card {
+    max-width: 13rem;
+  }
+
+  .profile-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
   }
 }
 </style>
