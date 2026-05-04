@@ -400,9 +400,9 @@ export default defineComponent({
   }
 
   .profile-card {
-    padding: 0.4rem;
+    padding: 0.35rem;
     border-width: 3px;
-    max-width: 14.5rem;
+    max-width: 18rem;
     margin-inline: auto;
     box-shadow: 6px 6px 0 #111111;
   }
@@ -444,7 +444,7 @@ export default defineComponent({
   }
 
   .profile-card {
-    max-width: 13rem;
+    max-width: 16rem;
   }
 
   .profile-badge {
