@@ -17,7 +17,7 @@
       </p>
       <div class="hero-actions" :class="showContent ? 'animate-fade-bot' : 'opacity-0'">
         <ResumeButton :resume-path="resumePath" />
-        <a href="/portfolio" class="secondary-cta">See selected work</a>
+        <a href="/portfolio" class="secondary-cta">See My Work</a>
       </div>
     </section>
     <div class="profile-shell" :class="showContent ? 'animate-fade-right' : 'opacity-0'">

@@ -2,7 +2,7 @@
   <main class="portfolio-page">
     <section class="portfolio-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-copy">
-        <span class="eyebrow">Selected work</span>
+        <span class="eyebrow">My work</span>
         <h1>Projects built to be useful, fast, and visually direct.</h1>
         <p>
           A compact showcase of recent work spanning portfolio systems, commerce experiments,
