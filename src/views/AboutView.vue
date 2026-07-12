@@ -33,11 +33,11 @@
               <span class="metric-label">Primary stack</span>
             </div>
             <div class="metric-card metric-card-accent">
-              <span class="metric-value">Bold</span>
-              <span class="metric-label">Visual style</span>
+              <span class="metric-value">UI-first</span>
+              <span class="metric-label">Design focus</span>
             </div>
             <div class="metric-card">
-              <span class="metric-value">1+</span>
+              <span class="metric-value">2+</span>
               <span class="metric-label">Years building</span>
             </div>
           </div>
@@ -144,10 +144,10 @@ export default {
       ],
       tools: [
         { id: 1, name: 'Git', imageUrl: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png', status: 'Version Control' },
-        { id: 2, name: 'GitHub', imageUrl: '/img/github-icon.svg', status: 'Git Hosting' },
+        { id: 2, name: 'GitHub', imageUrl: '/img/github-icon.svg', status: 'Project Management' },
         { id: 3, name: 'NPM', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-npm-3-1175132.png', status: 'Package Manager' },
         { id: 4, name: 'Vercel', imageUrl: 'https://vercel.com/favicon.ico', status: 'Deployment' },
-        { id: 5, name: 'Xampp', imageUrl: 'https://www.apachefriends.org/images/xampp-logo-ac950edf.svg', status: 'Local Server' },
+        { id: 5, name: 'XAMPP', imageUrl: 'https://www.apachefriends.org/images/xampp-logo-ac950edf.svg', status: 'Local Server' },
         { id: 6, name: 'Postman', imageUrl: '/img/postman-icon.svg', status: 'API Testing' },
         { id: 7, name: 'Figma', imageUrl: '/img/figma-icon.svg', status: 'Design' },
         { id: 8, name: 'Docker', imageUrl: '/img/docker-icon.svg', status: 'Containerization' },
@@ -156,7 +156,7 @@ export default {
         { id: 1, type: 'education', institution: 'SMA Negeri 9 Kota Bekasi', period: 'July 2020 - Mei 2023' },
         { id: 2, type: 'education', institution: 'Gunadarma University', period: 'September 2023 - Present' },
         { id: 3, type: 'career', institution: 'PT. Kereta Api Indonesia', period: 'March 2026 - Present', role: 'Data Entry Specialist', description: 'Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.' },
-        { id: 4, type: 'education', institution: 'ASAH Program by Dicoding', period: 'August 2025 - Present' },
+        { id: 4, type: 'education', institution: 'ASAH Program by Dicoding', period: 'August 2025 - December 2025' },
         { id: 5, type: 'career', institution: 'PT. Royal Trust', period: 'August 2025 - September 2025', role: 'Data Entry', description: "Responsible for data management and entry into the company's database." },
       ],
     };
