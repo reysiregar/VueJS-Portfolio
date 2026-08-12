@@ -189,7 +189,6 @@ export default defineComponent({
   padding: 0.5rem;
   border: 4px solid #111111;
   background: #ff5c4d;
-  box-shadow: 12px 12px 0 #111111;
   width: 100%;
 }
 
@@ -344,7 +343,7 @@ export default defineComponent({
   }
 
   .profile-card {
-    box-shadow: 8px 8px 0 #111111;
+    box-shadow: none;
   }
 }
 
@@ -404,7 +403,6 @@ export default defineComponent({
     border-width: 3px;
     max-width: 18rem;
     margin-inline: auto;
-    box-shadow: 6px 6px 0 #111111;
   }
 
   .profile-badge {
