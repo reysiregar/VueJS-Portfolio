@@ -1,4 +1,4 @@
-# Portfolio-v2
+# Portfolio Website - Neo Brutalism Theme Style
 
 ## Project Setup
 To start this project, make sure you have installed all dependencies by running the following command:
