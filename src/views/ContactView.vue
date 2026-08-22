@@ -2,26 +2,25 @@
   <main class="contact-page">
     <section class="contact-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-copy">
-        <span class="eyebrow">Contact</span>
-        <h1>Let’s connect and build something direct and useful.</h1>
+        <span class="eyebrow">Get In Touch</span>
+        <h1>Have a project in mind? Let’s collaborate and build something remarkable.</h1>
         <p>
-          Send a message, reach out through social channels, or drop a quick note if you want to talk
-          about work, collaboration, or an idea.
+          Whether you're looking for a front-end developer, have an internship or freelance opportunity, or simply want to chat about tech, my inbox is always open.
         </p>
       </div>
 
       <div class="contact-points">
         <div class="point-card">
-          <span class="point-label">Response</span>
-          <strong>Usually within a few days</strong>
+          <span class="point-label">Response Time</span>
+          <strong>Within 24 to 48 hours</strong>
         </div>
         <div class="point-card point-card-accent">
-          <span class="point-label">Focus</span>
-          <strong>Front-end, UI, and practical builds</strong>
+          <span class="point-label">Focus Areas</span>
+          <strong>Web Engineering, UI & Agency Services (RND Kreatif)</strong>
         </div>
         <div class="point-card">
           <span class="point-label">Location</span>
-          <strong>Bekasi, Indonesia</strong>
+          <strong>Bekasi, Indonesia (UTC+7)</strong>
         </div>
       </div>
     </section>
@@ -29,8 +28,8 @@
     <section class="contact-layout" :class="showContent ? 'animate-in delay-1' : 'is-hidden'">
       <form class="contact-form-card" @submit.prevent="sendMessage">
         <div class="section-head">
-          <span class="eyebrow eyebrow-alt">Message</span>
-          <h2>Send a quick note</h2>
+          <span class="eyebrow eyebrow-alt">Direct Message</span>
+          <h2>Send a message</h2>
         </div>
 
         <div class="field-group">
@@ -39,7 +38,7 @@
             v-model="formData.name"
             id="name"
             type="text"
-            placeholder="John Doe"
+            placeholder="e.g. Alex Morgan"
             class="input-field"
             required
           />
@@ -51,14 +50,14 @@
             v-model="formData.message"
             id="message"
             rows="5"
-            placeholder="Tell me about your project or idea..."
+            placeholder="Tell me about your project, timeline, or just say hello..."
             class="input-field textarea"
             required
           ></textarea>
         </div>
 
         <div class="captcha-card">
-          <label for="captcha">Solve this: {{ num1 }} + {{ num2 }} = ?</label>
+          <label for="captcha">Verify you're human: {{ num1 }} + {{ num2 }} = ?</label>
           <input
             v-model.number="captchaAnswer"
             type="number"
@@ -76,8 +75,8 @@
 
       <aside class="contact-side-card">
         <div class="section-head">
-          <span class="eyebrow">Elsewhere</span>
-          <h2>Find me here</h2>
+          <span class="eyebrow">Social Channels</span>
+          <h2>Connect & Follow</h2>
         </div>
 
         <div class="social-links">
@@ -97,7 +96,7 @@
 
         <div class="contact-note">
           <p>
-            If you prefer a social message over email, those links are the fastest way to reach me.
+            Looking for agency-level custom web development or ongoing website maintenance? Explore <a href="https://www.rndkreatif.tech/" target="_blank" rel="noreferrer" class="agency-link">RND Kreatif</a> or reach out directly for a consultation.
           </p>
         </div>
       </aside>
@@ -231,10 +230,10 @@ export default {
 
 .hero-copy h1 {
   margin: 0;
-  max-width: 12ch;
+  max-width: 22ch;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 0.96;
+  line-height: 1.05;
   font-weight: 900;
 }
 
@@ -421,6 +420,17 @@ export default {
   font-weight: 600;
 }
 
+.agency-link {
+  color: #ffd84d;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.agency-link:hover {
+  color: #ffffff;
+}
+
 .animate-in {
   animation: riseIn 0.55s ease-out forwards;
 }
@@ -456,6 +466,12 @@ export default {
   .contact-hero,
   .contact-layout {
     padding: 0.85rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+    line-height: 1.12;
   }
 
   .social-links {

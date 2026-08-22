@@ -2,17 +2,16 @@
   <main class="portfolio-page">
     <section class="portfolio-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-copy">
-        <span class="eyebrow">My work</span>
-        <h1>Projects built to be useful, fast, and visually direct.</h1>
+        <span class="eyebrow">Featured Work</span>
+        <h1>Selected projects built for speed, utility, and visual impact.</h1>
         <p>
-          A compact showcase of recent work spanning portfolio systems, commerce experiments,
-          scanning tools, and community sites.
+          A curated collection of web applications ranging from full-stack e-commerce and AI utilities to community platforms and interactive systems.
         </p>
       </div>
 
       <div class="hero-stats">
         <div class="stat-card">
-          <span class="stat-value">5</span>
+          <span class="stat-value">6</span>
           <span class="stat-label">Featured projects</span>
         </div>
         <div class="stat-card stat-card-accent">
@@ -28,7 +27,7 @@
 
     <section class="portfolio-grid-wrap" :class="showContent ? 'animate-in delay-1' : 'is-hidden'">
       <div v-if="loading" class="portfolio-grid">
-        <div v-for="n in 5" :key="`skeleton-${n}`" class="project-shell">
+        <div v-for="n in 6" :key="`skeleton-${n}`" class="project-shell">
           <SkeletonCard />
         </div>
       </div>
@@ -97,11 +96,21 @@ export default {
       loading: true,
       items: [
         {
+          id: 6,
+          name: 'RND Kreatif • Digital Agency',
+          imageUrl: 'portfolio-portfolio-v6',
+          imageLoading: true,
+          status: 'Official digital agency platform delivering bespoke web development, custom business solutions, and dedicated website maintenance services.',
+          tech: 'VueJS, Tailwind, Client Services',
+          github: 'null',
+          demo: 'https://www.rndkreatif.tech/',
+        },
+        {
           id: 1,
           name: 'Portfolio Website',
           imageUrl: 'portfolio-portfolio-v2',
           imageLoading: true,
-          status: 'A personal portfolio used to showcase profile, skills, and work while refining front-end craft.',
+          status: 'A bold neo-brutalist portfolio built with Vue 3 and modern CSS, featuring responsive layouts, micro-animations, and optimized performance.',
           tech: 'VueJS 3, Tailwind',
           github: 'https://github.com/reysiregar/portfolio-v2',
           demo: 'https://reysiregar-portfolio-v2.vercel.app/',
@@ -111,7 +120,7 @@ export default {
           name: 'Jewelry Commerce Website',
           imageUrl: 'portfolio-portfolio-v5',
           imageLoading: true,
-          status: 'A college team project for browsing and purchasing jewelry products online.',
+          status: 'A modern e-commerce storefront for fine jewelry with interactive product catalogs, cart workflows, and responsive checkout interfaces.',
           tech: 'ReactJS, Tailwind, Express 4, Radix UI',
           github: 'https://github.com/reysiregar/JewelryCommerce',
           demo: 'https://lumiere-commerce.vercel.app',
@@ -121,7 +130,7 @@ export default {
           name: 'Halal Scanner Website',
           imageUrl: 'portfolio-portfolio-v4',
           imageLoading: true,
-          status: 'A scanning tool for checking food and drink products with quick halal verification.',
+          status: 'An intelligent product scanning utility that provides instant halal verification and ingredient analysis for everyday consumables.',
           tech: 'ReactJS, Tailwind, Node.js, Express.js, Vite',
           github: 'https://github.com/reysiregar/halal-scanner',
           demo: 'https://ai-halal-scanner.vercel.app',
@@ -131,7 +140,7 @@ export default {
           name: 'Church Community Website',
           imageUrl: 'portfolio-portfolio-v3',
           imageLoading: true,
-          status: 'A community website for information, events, church services, and related updates.',
+          status: 'A central community portal delivering real-time event schedules, service bulletins, announcements, and media archives.',
           tech: 'HTML, CSS, JavaScript',
           github: 'https://github.com/reysiregar/nhkbpmj',
           demo: 'https://nhkbpmj.vercel.app',
@@ -141,7 +150,7 @@ export default {
           name: 'Christmas Invitation',
           imageUrl: 'portfolio-portfolio-v1',
           imageLoading: true,
-          status: 'A private invitation site for sharing event details like location, time, and context.',
+          status: 'An interactive event invitation platform featuring festive animations, venue maps, and real-time attendee coordination.',
           tech: 'JavaScript, SCSS',
           github: 'https://github.com/reysiregar/portfolio-v2',
           demo: 'https://christmas-website-pdd.vercel.app',
@@ -196,10 +205,10 @@ export default {
 
 .hero-copy h1 {
   margin: 0;
-  max-width: 12ch;
+  max-width: 22ch;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 0.96;
+  line-height: 1.05;
   font-weight: 900;
 }
 
@@ -284,7 +293,7 @@ export default {
 
 .project-media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   border: 3px solid #111111;
   background: #ebe7db;
   overflow: hidden;
@@ -300,6 +309,7 @@ export default {
 
 .project-image {
   object-fit: cover;
+  object-position: top center;
   opacity: 0;
   transition: opacity 220ms ease;
 }
@@ -420,7 +430,8 @@ export default {
 
   .hero-copy h1 {
     max-width: 100%;
-    font-size: clamp(1.85rem, 11vw, 2.8rem);
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+    line-height: 1.12;
   }
 
   .hero-copy p {

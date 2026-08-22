@@ -2,11 +2,10 @@
   <main class="certificate-page">
     <section class="certificate-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-copy">
-        <span class="eyebrow">Certificates</span>
-        <h1>Learning progress and achievements, presented as a compact gallery.</h1>
+        <span class="eyebrow">Credentials & Certifications</span>
+        <h1>Continuous learning, verified milestones, and technical credentials.</h1>
         <p>
-          A tighter showcase of completed courses and training certificates, with direct access to
-          credentials or full previews where needed.
+          A structured record of completed developer specializations, algorithmic problem solving, and professional training certifications.
         </p>
       </div>
 
@@ -17,11 +16,11 @@
         </div>
         <div class="metric-card metric-card-accent">
           <span class="metric-value">2</span>
-          <span class="metric-label">Preview only</span>
+          <span class="metric-label">Specializations</span>
         </div>
         <div class="metric-card">
           <span class="metric-value">Live</span>
-          <span class="metric-label">Credentials linked</span>
+          <span class="metric-label">Verified credentials</span>
         </div>
       </div>
     </section>
@@ -332,10 +331,10 @@ export default {
 
 .hero-copy h1 {
   margin: 0;
-  max-width: 12ch;
+  max-width: 22ch;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 0.96;
+  line-height: 1.05;
   font-weight: 900;
 }
 
@@ -729,7 +728,8 @@ export default {
 
   .hero-copy h1 {
     max-width: 100%;
-    font-size: clamp(1.85rem, 11vw, 2.8rem);
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+    line-height: 1.12;
   }
 
   .hero-copy p {

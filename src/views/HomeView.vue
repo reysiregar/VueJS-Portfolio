@@ -1,7 +1,7 @@
 <template>
   <main class="home-grid" itemscope itemtype="https://schema.org/Person">
     <section class="home-copy" itemscope itemtype="https://schema.org/Person">
-      <p :class="['eyebrow', showContent ? 'animate-fade-up' : 'opacity-0']">Welcome to my portfolio website</p>
+      <p :class="['eyebrow', showContent ? 'animate-fade-up' : 'opacity-0']">Welcome to my portfolio</p>
       <h1 :class="['hero-title', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="name">Reynaldi Siregar</h1>
       <div class="py-1">
         <TypeWriter 
@@ -12,17 +12,16 @@
         <meta itemprop="jobTitle" content="Front-End Web Developer">
       </div>
       <p :class="['hero-description', showContent ? 'animate-fade-up' : 'opacity-0']" itemprop="description">
-        A passionate website developer crafting clean, modern web experiences. I love building interfaces that are both beautiful and functional.
-        <span class="wave" role="img" aria-label="Waving hand emoji">👋🏼</span>
+        Building sleek, responsive, and tactile web applications that blend clean code with purposeful design. Focused on creating user experiences that feel fast, intuitive, and delightful.
       </p>
       <div class="hero-actions" :class="showContent ? 'animate-fade-bot' : 'opacity-0'">
         <ResumeButton :resume-path="resumePath" />
-        <a href="/portfolio" class="secondary-cta">See My Work</a>
+        <router-link to="/portfolio" class="secondary-cta">Explore Projects</router-link>
       </div>
     </section>
     <div class="profile-shell" :class="showContent ? 'animate-fade-right' : 'opacity-0'">
       <div class="profile-card">
-        <div class="profile-badge">Available for freelance / internships</div>
+        <div class="profile-badge">Open for Freelance & Internships</div>
         <img 
           alt="Reynaldi Wiratama Siregar - Front-End Web Developer from Bekasi, Indonesia" 
           fetchpriority="high" 
@@ -58,10 +57,10 @@ export default defineComponent({
   data() {
     return {
       roles: [
-        "Front-End Developer",
-        "Website Developer",
-        "Information System Student",
-        "IT Enthusiast"
+        "Front-End Web Developer",
+        "Founder @ RND Kreatif",
+        "UI/UX Builder & Crafter",
+        "Information Systems Student",
       ],
       resumePath: '/CV_REYNALDI_SIREGAR.pdf',
     }

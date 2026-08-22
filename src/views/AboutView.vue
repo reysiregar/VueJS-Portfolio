@@ -3,17 +3,15 @@
     <section class="hero-card" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-layout">
         <div class="hero-copy">
-          <span class="eyebrow">About me</span>
-          <h1 class="hero-title">Designing useful interfaces with a bold, tactile feel.</h1>
+          <span class="eyebrow">About Me</span>
+          <h1 class="hero-title">Crafting high-impact interfaces where clean code meets bold design.</h1>
 
           <div class="hero-text-card">
             <p>
-              I’m Reynaldi Siregar, a front-end web developer based in Bekasi, Indonesia. I like turning
-              ideas into interfaces that feel direct, readable, and memorable.
+              I’m Reynaldi Siregar, a front-end web developer and Information Systems student based in Bekasi, Indonesia. I transform complex ideas into intuitive, highly responsive, and visually striking web interfaces.
             </p>
             <p>
-              My focus is clean implementation with strong visual hierarchy, so the final product looks
-              sharp without losing usability.
+              My approach bridges design and engineering by writing clean, maintainable code with strict attention to typography, visual hierarchy, and performance to ensure every product looks sharp and feels effortless to use.
             </p>
           </div>
         </div>
@@ -48,7 +46,7 @@
     <section class="journey-section" :class="showContent ? 'animate-in delay-1' : 'is-hidden'">
       <div class="section-head">
         <span class="eyebrow eyebrow-alt">Journey</span>
-        <h2>Experience and education</h2>
+        <h2>Experience & Education</h2>
       </div>
 
       <div class="journey-grid">
@@ -87,7 +85,7 @@
     <section class="skills-section" :class="showContent ? 'animate-in delay-2' : 'is-hidden'">
       <div class="section-head">
         <span class="eyebrow eyebrow-alt">Toolkit</span>
-        <h2>Tech stack and tools</h2>
+        <h2>Tech Stack & Development Tools</h2>
       </div>
 
       <div class="tabs">
@@ -134,13 +132,13 @@ export default {
     return {
       activeTab: 1,
       tech: [
-        { id: 1, name: 'HTML', imageUrl: 'https://cdn-icons-png.flaticon.com/512/1051/1051277.png', status: 'Beginner' },
-        { id: 2, name: 'CSS', imageUrl: 'https://cdn-icons-png.flaticon.com/512/732/732190.png', status: 'Beginner' },
-        { id: 3, name: 'Javascript', imageUrl: 'https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.svg', status: 'Beginner' },
-        { id: 4, name: 'VueJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png?f=webp', status: 'Beginner' },
-        { id: 5, name: 'NodeJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-node-js-1174925.png', status: 'Beginner' },
-        { id: 6, name: 'Tailwind', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg', status: 'Beginner' },
-        { id: 7, name: 'ReactJS', imageUrl: 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png', status: 'Beginner' },
+        { id: 1, name: 'HTML', imageUrl: 'https://cdn-icons-png.flaticon.com/512/1051/1051277.png', status: 'Structure & Semantics' },
+        { id: 2, name: 'CSS', imageUrl: 'https://cdn-icons-png.flaticon.com/512/732/732190.png', status: 'Styling & Animation' },
+        { id: 3, name: 'Javascript', imageUrl: 'https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.svg', status: 'Core Logic & ES6+' },
+        { id: 4, name: 'VueJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png?f=webp', status: 'Primary Framework' },
+        { id: 5, name: 'NodeJS', imageUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-node-js-1174925.png', status: 'Runtime & APIs' },
+        { id: 6, name: 'Tailwind', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg', status: 'Utility-First UI' },
+        { id: 7, name: 'ReactJS', imageUrl: 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png', status: 'Component Systems' },
       ],
       tools: [
         { id: 1, name: 'Git', imageUrl: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png', status: 'Version Control' },
@@ -153,11 +151,12 @@ export default {
         { id: 8, name: 'Docker', imageUrl: '/img/docker-icon.svg', status: 'Containerization' },
       ],
       timeline: [
+        { id: 6, type: 'career', institution: 'RND Kreatif (rndkreatif.tech)', period: '2024 - Present', role: 'Founder & Lead Developer', description: 'Founded a creative digital agency delivering bespoke web development, custom business websites, and dedicated website maintenance services.' },
         { id: 1, type: 'education', institution: 'SMA Negeri 9 Kota Bekasi', period: 'July 2020 - Mei 2023' },
         { id: 2, type: 'education', institution: 'Gunadarma University', period: 'September 2023 - Present' },
         { id: 3, type: 'career', institution: 'PT. Kereta Api Indonesia', period: 'March 2026 - Present', role: 'Data Entry Specialist', description: 'Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.' },
         { id: 4, type: 'education', institution: 'ASAH Program by Dicoding', period: 'August 2025 - December 2025' },
-        { id: 5, type: 'career', institution: 'PT. Royal Trust', period: 'August 2025 - September 2025', role: 'Data Entry', description: "Responsible for data management and entry into the company's database." },
+        { id: 5, type: 'career', institution: 'PT. Royal Trust', period: 'August 2025 - September 2025', role: 'Data Entry', description: "Streamlined and maintained corporate data pipelines, ensuring rigorous data integrity, systematic verification, and fast database updates." },
       ],
     };
   },
@@ -236,10 +235,10 @@ export default {
 }
 
 .hero-title {
-  max-width: 12ch;
+  max-width: 20ch;
   margin: 0;
   font-size: clamp(1.85rem, 3vw, 3.2rem);
-  line-height: 0.95;
+  line-height: 1.05;
 }
 
 .hero-layout,
@@ -647,7 +646,8 @@ export default {
 
 @media (max-width: 640px) {
   .hero-title {
-    font-size: clamp(1.85rem, 11vw, 2.8rem);
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+    line-height: 1.12;
   }
 
   .hero-metrics {

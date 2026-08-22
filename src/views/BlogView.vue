@@ -2,22 +2,23 @@
   <main class="blog-page">
     <section class="blog-hero" :class="showContent ? 'animate-in' : 'is-hidden'">
       <div class="hero-copy">
-        <span class="eyebrow">Blog</span>
-        <h1>Short reads, stories, and lessons from learning and building.</h1>
+        <span class="eyebrow">Writings & Thoughts</span>
+        <h1>Perspectives on tech, cybersecurity, and lessons from the build.</h1>
         <p>
-          A compact feed of writing around technology, education, and personal observations.
+          Explore articles, technical breakdowns, and personal reflections on digital trends and software development.
         </p>
       </div>
 
       <aside class="sidebar-card">
-        <p class="sidebar-text">Let’s share experiences, stories, and knowledge together.</p>
+        <p class="sidebar-text">Sharing insights, tech commentary, and ideas that spark curiosity.</p>
         <div class="divider"></div>
         <div class="topics-block">
-          <span class="topics-title">Topics</span>
+          <span class="topics-title">Featured Topics</span>
           <div class="topic-list">
-            <span>NodeJS</span>
-            <span>Technology</span>
+            <span>Tech & Web</span>
+            <span>Cybersecurity</span>
             <span>Education</span>
+            <span>Creative Writing</span>
           </div>
         </div>
       </aside>
@@ -68,7 +69,7 @@ export default {
           id: 1,
           title: 'Kebocoran Data PDNS di Indonesia',
           date: '2024-07-09',
-          desc: 'Ancaman Keamanan Siber yang Semakin Nyata.',
+          desc: "An in-depth analysis of national cybersecurity vulnerabilities and data governance lessons from Indonesia's PDNS incident.",
           image: 'https://assets.kompasiana.com/items/album/2024/07/09/source-image-668d3680ed641554ec796102.png?t=o&v=770',
           link: 'https://www.kompasiana.com/reysiregar24/668d371434777c06dc4407c3/kebocoran-data-pdns-di-indonesia-ancaman-keamanan-siber-yang-semakin-nyata',
           imageLoading: true,
@@ -77,7 +78,7 @@ export default {
           id: 2,
           title: 'Karangan Non-Ilmiah berupa Cerpen',
           date: '2024-07-05',
-          desc: 'Meniti Impian di Antara Bahasa dan Teknologi.',
+          desc: 'A short story exploring the intersection of language, human ambition, and the digital landscape.',
           image: 'https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1634025439/01hk1q0ajqbrq821k4xp5np1hy.jpg',
           link: 'https://reyeducations.blogspot.com/2024/07/karangan-non-ilmiah-berupa-cerpen.html',
           imageLoading: true,
@@ -86,7 +87,7 @@ export default {
           id: 3,
           title: 'Apa itu Bullying dan Dampaknya?',
           date: '2023-11-11',
-          desc: 'Bahaya dari dampak Bullying dan Bagaimana kita harus menanggapinya.',
+          desc: 'Understanding the psychosocial impacts of bullying and actionable approaches to foster supportive environments.',
           image: 'https://cdn1-production-images-kly.akamaized.net/nvfAWzIlggPtzIpkXZn3Vp5BGYg=/1200x900/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4556789/original/003397600_1693370707-8845717_4014587_1_.jpg',
           link: 'https://reyeducations.blogspot.com/2023/10/halo-semua-perkenalkan-nama-saya.html',
           imageLoading: true,
@@ -128,10 +129,10 @@ export default {
 
 .hero-copy h1 {
   margin: 0;
-  max-width: 14ch;
+  max-width: 22ch;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 0.96;
+  line-height: 1.05;
   font-weight: 900;
 }
 
@@ -341,7 +342,8 @@ export default {
 
   .hero-copy h1 {
     max-width: 100%;
-    font-size: clamp(1.85rem, 11vw, 2.8rem);
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+    line-height: 1.12;
   }
 
   .hero-copy p,
