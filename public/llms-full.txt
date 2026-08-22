@@ -1,0 +1,138 @@
+# Reynaldi Siregar - Comprehensive Portfolio & Profile Details
+
+> Full context document for LLMs and AI agents containing comprehensive background, education, career history, skills, projects, certificates, and published articles for Reynaldi Wiratama Siregar.
+
+---
+
+## 1. Professional Overview
+
+- **Full Name**: Reynaldi Wiratama Siregar
+- **Preferred Name**: Reynaldi Siregar
+- **Role / Title**: Front-End Web Developer & UI Crafter
+- **Location**: Bekasi, West Java, Indonesia
+- **Primary Website**: https://www.reynaldisiregar.me/
+- **Email**: reynaldisiregar24@yahoo.com
+- **LinkedIn**: https://www.linkedin.com/in/reynaldi-siregar-490b8b261
+- **GitHub**: https://github.com/reysiregar
+- **Instagram**: https://instagram.com/reysiregars
+
+Reynaldi Wiratama Siregar is a Front-End Web Developer and Information Systems student at Gunadarma University. He specializes in Vue.js, React, modern JavaScript (ES6+), responsive layout design, and neo-brutalist / modern UI styling. He has founded RND Kreatif, a digital agency delivering bespoke web applications, and has worked on various high-performance web systems and community platforms.
+
+---
+
+## 2. Core Website Navigation & Pages
+
+- [Home](https://www.reynaldisiregar.me/): Welcome overview, hero introduction, featured skills, and quick links.
+- [About Me](https://www.reynaldisiregar.me/about): Detailed personal biography, educational timeline, work experience, and tech toolkit.
+- [Portfolio](https://www.reynaldisiregar.me/portfolio): Curated showcase of 6 featured web development projects with live demo links and GitHub repositories.
+- [Certifications](https://www.reynaldisiregar.me/certificate): Verified credentials across web development, JavaScript fundamentals, AI basics, and algorithm problem-solving.
+- [Blog](https://www.reynaldisiregar.me/blog): Published articles on cybersecurity, data governance, creative writing, and psychosocial topics.
+- [Contact](https://www.reynaldisiregar.me/contact): Interactive contact form powered by EmailJS, location info, and direct communication links.
+
+---
+
+## 3. Experience & Career History
+
+- **Founder & Lead Developer** at **RND Kreatif** (`https://www.rndkreatif.tech/`) | *2024 - Present*
+  - Founded a creative digital agency delivering bespoke web development, custom business websites, and dedicated website maintenance services.
+- **Data Entry Specialist** at **PT. Kereta Api Indonesia** | *March 2026 - Present*
+  - Managed participant registration and high-volume data verification for the MOTIS Lebaran 2026 Program, ensuring accuracy, operational efficiency, and professional on-site customer service.
+- **Data Entry** at **PT. Royal Trust** | *August 2025 - September 2025*
+  - Streamlined and maintained corporate data pipelines, ensuring rigorous data integrity, systematic verification, and fast database updates.
+
+---
+
+## 4. Education & Formal Training
+
+- **Gunadarma University** | *September 2023 - Present*
+  - Bachelor of Information Systems (S1 Sistem Informasi)
+- **ASAH Program by Dicoding** | *August 2025 - December 2025*
+  - Intensive front-end and web technology learning path
+- **SMA Negeri 9 Kota Bekasi** | *July 2020 - May 2023*
+  - High School Diploma
+
+---
+
+## 5. Featured Projects
+
+1. **RND Kreatif • Digital Agency**
+   - **Website / Demo**: https://www.rndkreatif.tech/
+   - **Tech Stack**: VueJS, Tailwind CSS, Client Services
+   - **Description**: Official digital agency platform delivering bespoke web development, custom business solutions, and dedicated website maintenance services.
+
+2. **Portfolio Website v2**
+   - **Live Demo**: https://reysiregar-portfolio-v2.vercel.app/
+   - **GitHub Repository**: https://github.com/reysiregar/portfolio-v2
+   - **Tech Stack**: VueJS 3, Tailwind CSS, Modern CSS
+   - **Description**: A bold neo-brutalist portfolio built with Vue 3 and modern CSS, featuring responsive layouts, micro-animations, and optimized performance.
+
+3. **Jewelry Commerce Website (Lumiere)**
+   - **Live Demo**: https://lumiere-commerce.vercel.app
+   - **GitHub Repository**: https://github.com/reysiregar/JewelryCommerce
+   - **Tech Stack**: ReactJS, Tailwind CSS, Express 4, Radix UI
+   - **Description**: A modern e-commerce storefront for fine jewelry with interactive product catalogs, cart workflows, and responsive checkout interfaces.
+
+4. **Halal Scanner Website**
+   - **Live Demo**: https://ai-halal-scanner.vercel.app
+   - **GitHub Repository**: https://github.com/reysiregar/halal-scanner
+   - **Tech Stack**: ReactJS, Tailwind CSS, Node.js, Express.js, Vite
+   - **Description**: An intelligent product scanning utility that provides instant halal verification and ingredient analysis for everyday consumables.
+
+5. **Church Community Website (NHKBPMJ)**
+   - **Live Demo**: https://nhkbpmj.vercel.app
+   - **GitHub Repository**: https://github.com/reysiregar/nhkbpmj
+   - **Tech Stack**: HTML, CSS, JavaScript
+   - **Description**: A central community portal delivering real-time event schedules, service bulletins, announcements, and media archives.
+
+6. **Christmas Invitation**
+   - **Live Demo**: https://christmas-website-pdd.vercel.app
+   - **GitHub Repository**: https://github.com/reysiregar/portfolio-v2
+   - **Tech Stack**: JavaScript, SCSS
+   - **Description**: An interactive event invitation platform featuring festive animations, venue maps, and real-time attendee coordination.
+
+---
+
+## 6. Certifications & Credentials
+
+- **Belajar Dasar Pemrograman Web** | Dicoding (*November 2025*)
+  - Credential URL: https://www.dicoding.com/certificates/1OP842VJ1ZQK
+  - Topics: HTML5, CSS3, Responsive Design, Front-End Basics
+- **Belajar Dasar Pemrograman JavaScript** | Dicoding (*November 2025*)
+  - Credential URL: https://www.dicoding.com/certificates/07Z64DLN2PQR
+  - Topics: ES6+, Data Structures, Functions, Object-Oriented Programming, Async JS
+- **Belajar Membuat Front-End Web untuk Pemula** | Dicoding (*November 2025*)
+  - Credential URL: https://www.dicoding.com/certificates/2VX34E134ZYQ
+  - Topics: DOM Manipulation, Web Storage, Event Handling, Interactive UI
+- **Belajar Dasar AI** | Dicoding (*November 2025*)
+  - Credential URL: https://www.dicoding.com/certificates/4EXG7240GPRL
+  - Topics: Artificial Intelligence, Machine Learning, Data Foundations
+- **Problem Solving (Basic)** | HackerRank (*July 2025*)
+  - Credential URL: https://www.hackerrank.com/certificates/34f5b92b171d
+  - Topics: Data Structures, Algorithms, Computational Problem Solving
+- **Fundamental Front-End Web Development** | Dicoding (*February 2025*)
+  - Credential URL: https://www.dicoding.com/certificates/0LZ0RGW63P65
+  - Topics: RESTful API Integration, Web Components, Webpack Bundling
+- **Intermediate Front-End Development** | Dicoding (*March 2025*)
+  - Specialization: Comprehensive intermediate front-end web engineering
+- **Certificate of Training: JavaScript Fundamental** | Gunadarma University (*June 2025*)
+  - Training ID: 825739
+  - Specialization: JavaScript Programming Languages Fundamental
+
+---
+
+## 7. Published Writings & Articles
+
+- [Kebocoran Data PDNS di Indonesia](https://www.kompasiana.com/reysiregar24/668d371434777c06dc4407c3/kebocoran-data-pdns-di-indonesia-ancaman-keamanan-siber-yang-semakin-nyata) (*2024-07-09*)
+  - Analysis of national cybersecurity vulnerabilities and data governance lessons from Indonesia's PDNS ransomware incident.
+- [Karangan Non-Ilmiah berupa Cerpen](https://reyeducations.blogspot.com/2024/07/karangan-non-ilmiah-berupa-cerpen.html) (*2024-07-05*)
+  - Creative narrative exploring the human experience in the digital era.
+- [Apa itu Bullying dan Dampaknya?](https://reyeducations.blogspot.com/2023/10/halo-semua-perkenalkan-nama-saya.html) (*2023-11-11*)
+  - Educational insights into the psychological effects of bullying and fostering empathy in educational environments.
+
+---
+
+## 8. Technical Skills
+
+- **Front-End**: HTML5, CSS3, SCSS, JavaScript (ES6+), Vue.js (Vue 3, Vue Router), React.js, Tailwind CSS, Radix UI
+- **Back-End / Systems**: Node.js, Express.js
+- **Tooling & Workflow**: Git, GitHub, NPM, Vite, Webpack, Vercel, Postman, Docker, Figma, XAMPP

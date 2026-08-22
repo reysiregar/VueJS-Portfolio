@@ -1,0 +1,50 @@
+# Reynaldi Siregar
+
+> Reynaldi Wiratama Siregar is a Front-End Web Developer and UI Crafter based in Bekasi, Indonesia, specializing in Vue.js, React, JavaScript, and responsive UI engineering.
+
+Reynaldi designs and develops intuitive, accessible, and visually striking web interfaces with neo-brutalist and modern aesthetic design philosophies. This file provides AI assistants and language models with a structured directory of the website's content, projects, credentials, and contact endpoints.
+
+## Core Pages
+
+- [Home](https://www.reynaldisiregar.me/): Welcome overview, hero introduction, featured skills, and quick links.
+- [About Me](https://www.reynaldisiregar.me/about): Bio, education background, career experience, and technical skill set.
+- [Portfolio Projects](https://www.reynaldisiregar.me/portfolio): Featured web development projects with live demo links and GitHub repositories.
+- [Certifications](https://www.reynaldisiregar.me/certificate): Verified professional certifications, course completions, and coding credentials.
+- [Blog & Writings](https://www.reynaldisiregar.me/blog): Articles and perspectives on technology, cybersecurity, and software engineering.
+- [Contact](https://www.reynaldisiregar.me/contact): Contact form and direct communication channels.
+
+## Featured Projects
+
+- [RND Kreatif Digital Agency](https://www.rndkreatif.tech/): Official digital agency platform delivering bespoke web development and client services (Vue.js, Tailwind CSS).
+- [Portfolio Website v2](https://reysiregar-portfolio-v2.vercel.app/): Neo-brutalist portfolio website built with Vue 3 and modern CSS (Source: [GitHub](https://github.com/reysiregar/portfolio-v2)).
+- [Jewelry Commerce Website](https://lumiere-commerce.vercel.app): Modern e-commerce storefront for fine jewelry featuring interactive product catalogs and checkout workflows (React, Tailwind CSS, Express 4, Radix UI; Source: [GitHub](https://github.com/reysiregar/JewelryCommerce)).
+- [Halal Scanner Website](https://ai-halal-scanner.vercel.app): Intelligent product scanning utility providing instant halal verification and ingredient analysis (React, Tailwind CSS, Node.js, Express, Vite; Source: [GitHub](https://github.com/reysiregar/halal-scanner)).
+- [Church Community Website](https://nhkbpmj.vercel.app): Central community portal for event schedules, service bulletins, and media archives (HTML, CSS, JavaScript; Source: [GitHub](https://github.com/reysiregar/nhkbpmj)).
+- [Christmas Invitation](https://christmas-website-pdd.vercel.app): Interactive festive event invitation platform with dynamic animations (JavaScript, SCSS; Source: [GitHub](https://github.com/reysiregar/portfolio-v2)).
+
+## Technical Skills & Tools
+
+- **Core Technologies**: JavaScript (ES6+), HTML5, CSS3, SCSS
+- **Front-End Frameworks & Libraries**: Vue.js 3, React.js, Tailwind CSS, Radix UI
+- **Back-End & Runtimes**: Node.js, Express.js
+- **Development & Deployment**: Git, GitHub, NPM, Vite, Webpack, Vercel, Postman, Docker, Figma
+
+## Certifications & Achievements
+
+- [Belajar Dasar Pemrograman Web](https://www.dicoding.com/certificates/1OP842VJ1ZQK): Dicoding certification covering foundational web development.
+- [Belajar Dasar Pemrograman JavaScript](https://www.dicoding.com/certificates/07Z64DLN2PQR): Dicoding certification covering core JavaScript logic and runtime basics.
+- [Belajar Membuat Front-End Web untuk Pemula](https://www.dicoding.com/certificates/2VX34E134ZYQ): Dicoding certification in beginner front-end web application engineering.
+- [Belajar Dasar AI](https://www.dicoding.com/certificates/4EXG7240GPRL): Dicoding certification covering Artificial Intelligence & Machine Learning foundations.
+- [Problem Solving (Basic)](https://www.hackerrank.com/certificates/34f5b92b171d): HackerRank verified certification in data structures and algorithmic problem solving.
+- [Fundamental Front-End Web Development](https://www.dicoding.com/certificates/0LZ0RGW63P65): Dicoding certification on APIs, asynchronous JavaScript, and Webpack tooling.
+
+## Contact & Social Links
+
+- [Email](mailto:reynaldisiregar24@yahoo.com): reynaldisiregar24@yahoo.com
+- [LinkedIn](https://www.linkedin.com/in/reynaldi-siregar-490b8b261): Professional profile and connections.
+- [GitHub](https://github.com/reysiregar): Code repositories and open source projects.
+- [Instagram](https://instagram.com/reysiregars): Social updates and personal creative channel.
+
+## Optional
+
+- [Full Context (llms-full.txt)](https://www.reynaldisiregar.me/llms-full.txt): Comprehensive plain-text context for deep LLM ingestion.
